@@ -29,9 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -49,7 +52,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
+@Autonomous(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
 public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
@@ -63,6 +66,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
    *  FreightFrenzy_DM.tflite  0: Duck,  1: Marker
    */
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_DM.tflite";
+    private ElapsedTime runtime = new ElapsedTime();
     private static final String[] LABELS = {
       //"Ball",
       //"Cube",
@@ -117,15 +121,19 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 16/9).
-            tfod.setZoom(2.5, 16.0/9.0);
+            tfod.setZoom(1.5, 16 / 9.0);
         }
 
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
+        sleep(2000);
 
-        if (opModeIsActive()) {
+
+
+
+        /*if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
@@ -133,21 +141,24 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
+                      sleep(2000);
+                      if (updatedRecognitions.size() == 1) {
+
+                      }
                       // step through the list of recognitions and display boundary info.
-                      int i = 0;
-                      for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
-                        i++;
+                      //int i = 0;
+                      //for (Recognition recognition : updatedRecognitions) {
+                      //  telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                      //  telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                      //          recognition.getLeft(), recognition.getTop());
+                      //  telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                      //          recognition.getRight(), recognition.getBottom());
+                      //  i++;
                       }
                       telemetry.update();
                     }
                 }
-            }
-        }
+            }*/
     }
 
     /**
@@ -175,7 +186,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
             "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-       tfodParameters.minResultConfidence = 0.8f;
+       tfodParameters.minResultConfidence = 0.95f;
        tfodParameters.isModelTensorFlow2 = true;
        tfodParameters.inputSize = 320;
        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);

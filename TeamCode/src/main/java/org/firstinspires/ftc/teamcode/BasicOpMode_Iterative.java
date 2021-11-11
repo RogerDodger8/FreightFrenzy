@@ -65,8 +65,8 @@ public class BasicOpMode_Iterative extends OpMode
     private CRServo shuteServo = null;
     private CRServo gatherServo = null;
     private DcMotor spinServo = null;
-    private DcMotor liftRight = null;
-    private DcMotor liftLeft = null;
+    //private DcMotor liftRight = null;
+    private DcMotor lift = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -87,8 +87,8 @@ public class BasicOpMode_Iterative extends OpMode
         gatherServo = hardwareMap.get(CRServo.class, "gatherServo");
         spinServo = hardwareMap.get(DcMotor.class, "spinServo");
 
-        liftRight = hardwareMap.get(DcMotor.class, "liftRight");
-        liftLeft = hardwareMap.get(DcMotor.class, "liftLeft");
+        //liftRight = hardwareMap.get(DcMotor.class, "liftRight");
+        lift = hardwareMap.get(DcMotor.class, "lift");
 
 
 
@@ -99,8 +99,8 @@ public class BasicOpMode_Iterative extends OpMode
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
         BackRight.setDirection(DcMotor.Direction.REVERSE);
 
-        liftLeft.setDirection(DcMotor.Direction.REVERSE);
-        liftRight.setDirection(DcMotor.Direction.FORWARD);
+        lift.setDirection(DcMotor.Direction.REVERSE);
+        //liftRight.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -167,10 +167,10 @@ public class BasicOpMode_Iterative extends OpMode
             gatherServo.setPower(0);
         }
 
-        if(gamepad1.left_bumper){
-            spinServo.setPower(0.4);
-        }else if(gamepad1.right_bumper) {
-            spinServo.setPower(-0.4);
+        if(gamepad2.b){
+            spinServo.setPower(0.6);
+        }else if(gamepad2.a) {
+            spinServo.setPower(-0.6);
         } else {
             spinServo.setPower(0);
         }
@@ -203,13 +203,20 @@ public class BasicOpMode_Iterative extends OpMode
             BackrightPower = -0.25;
         }
 
+        if(gamepad1.right_bumper) {
+            FrontleftPower *= 0.5;
+            FrontrightPower *= 0.5;
+            BackleftPower *= 0.5;
+            BackrightPower *= 0.5;
+        }
 
 
 
-        liftLeft.setPower(gamepad2.left_trigger);
-        liftRight.setPower(gamepad2.left_trigger);
-        liftRight.setPower(-gamepad2.right_trigger);
-        liftLeft.setPower(-gamepad2.right_trigger);
+
+        lift.setPower(gamepad2.left_trigger);
+        //liftRight.setPower(gamepad2.left_trigger);
+        //liftRight.setPower(-gamepad2.right_trigger);
+        lift.setPower(-gamepad2.right_trigger);
 
 
 
