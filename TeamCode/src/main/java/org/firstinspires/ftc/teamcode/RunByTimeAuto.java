@@ -34,6 +34,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
+
 /**
  * This file illustrates the concept of driving a path based on time.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -57,17 +65,73 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="test auto", group="Pushbot")
 public class RunByTimeAuto extends LinearOpMode {
+    private static final String TFOD_MODEL_ASSET = "FreightFrenzy_DM.tflite";
+    private ElapsedTime runtime = new ElapsedTime();
+    private static final String[] LABELS = {
+            //"Ball",
+            //"Cube",
+            "Duck",
+            "Marker"
+    };
 
-    /* Declare OpMode members. */
-    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
+    /*
+     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+     * web site at https://developer.vuforia.com/license-manager.
+     *
+     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+     * random data. As an example, here is a example of a fragment of a valid key:
+     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+     * Once you've obtained a license key, copy the string from the Vuforia web site
+     * and paste it in to your code on the next line, between the double quotes.
+     */
+    private static final String VUFORIA_KEY =
+            "AQ0rZzP/////AAABmTRIZi0yo0NXiSsea78S8wVqSI8v64D/rFfE8zOk70jx0HCdjmPYt8x4SD3+csUaQZbgVuMkVpCeZovQydoVuMPO5E0pffJFdlnss7dY8+ZneTdIPSe/PUFLDIdqIvmxIFlQalKSM95pLuhIoBOK9bKbPHIsB6U2YgLdkLUDbaemHbE2Umla15R9guvN+7PLKRT71SKFAZrfQOSI8FphIHk2YWz1jryflHMAiGwqwe78wkB7NOPNePkDV0y+wmLI5C3jSm1w+lkGYsKl2zGwwyUZAUJSoskFU+X0hdEtWY9/QZAPLfCYTUPCqsihkiX4L8MGeCqfY6xidfjquqfeIluXBeOw2by431akuO52xGZb";
 
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private VuforiaLocalizer vuforia;
 
-    static final double     FORWARD_SPEED = 0.3;
-    static final double     TURN_SPEED    = 0.3;
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
+     * Detection engine.
+     */
+    private TFObjectDetector tfod;
 
     @Override
     public void runOpMode() {
+        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+        // first.
+        initVuforia();
+        initTfod();
+
+        /**
+         * Activate TensorFlow Object Detection before we wait for the start command.
+         * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
+         **/
+        if (tfod != null) {
+            tfod.activate();
+
+            // The TensorFlow software will scale the input images from the camera to a lower resolution.
+            // This can result in lower detection accuracy at longer distances (> 55cm or 22").
+            // If your target is at distance greater than 50 cm (20") you can adjust the magnification value
+            // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
+            // should be set to the value of the images used to create the TensorFlow Object Detection model
+            // (typically 16/9).
+            tfod.setZoom(1.5, 16 / 9.0);
+        }
+
+    /* Declare OpMode members. */
+    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+        ElapsedTime     runtime = new ElapsedTime();
+
+
+     final double     FORWARD_SPEED = 0.3;
+     final double     TURN_SPEED    = 0.3;
+
 
         /*
          * Initialize the drive system variables.
@@ -80,16 +144,67 @@ public class RunByTimeAuto extends LinearOpMode {
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
+        List<Recognition> updatedRecognitions = tfod.getRecognitions();
         waitForStart();
+        double currenttime = runtime.seconds();
+        while(opModeIsActive()&&(runtime.seconds()-currenttime<2)){
+            telemetry.addData("before", "listupdate");
+            telemetry.update();
+            sleep(1000);
+           updatedRecognitions = tfod.getUpdatedRecognitions();
+           telemetry.addData("after","listupdate");
+           telemetry.update();
+           sleep(1000);
+
+           telemetry.addData("# Object Detected", updatedRecognitions.size());
+            telemetry.update();
+        }
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
+        if(updatedRecognitions.size() == 1) {
+            robot.frontLeft.setPower(FORWARD_SPEED);
+            robot.frontRight.setPower(FORWARD_SPEED);
+            robot.backLeft.setPower(FORWARD_SPEED);
+            robot.backRight.setPower(FORWARD_SPEED);
+            sleep(1000);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.frontLeft.setPower(-TURN_SPEED);
+            robot.frontRight.setPower(TURN_SPEED);
+            robot.backRight.setPower(TURN_SPEED);
+            robot.backLeft.setPower(-TURN_SPEED);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backRight.setPower(0);
+            robot.backLeft.setPower(0);
+
+            robot.frontLeft.setPower(FORWARD_SPEED);
+            robot.frontRight.setPower(FORWARD_SPEED);
+            robot.backLeft.setPower(FORWARD_SPEED);
+            robot.backRight.setPower(FORWARD_SPEED);
+            sleep(10);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.lift.setPower(-0.4);
+            sleep(1000);
+            robot.lift.setPower(0.25);
+            sleep(1000);
+
+        }
 
         // Step 1:  Drive forward for 3 seconds
-        robot.frontLeft.setPower(FORWARD_SPEED);
-        robot.frontRight.setPower(FORWARD_SPEED);
-        robot.backLeft.setPower(FORWARD_SPEED);
-        robot.backRight.setPower(FORWARD_SPEED);
-        runtime.reset();
+        //robot.frontLeft.setPower(FORWARD_SPEED);
+        //robot.frontRight.setPower(FORWARD_SPEED);
+        //robot.backLeft.setPower(FORWARD_SPEED);
+        //robot.backRight.setPower(FORWARD_SPEED);
+        /*runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -125,6 +240,35 @@ public class RunByTimeAuto extends LinearOpMode {
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
-        sleep(1000);
+        sleep(1000);*/
     }
+        private void initVuforia() {
+            /*
+             * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+             */
+            VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+            parameters.vuforiaLicenseKey = VUFORIA_KEY;
+            parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+            //  Instantiate the Vuforia engine
+            vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+            // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+        }
+
+        /**
+         * Initialize the TensorFlow Object Detection engine.
+         */
+        private void initTfod() {
+            int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                    "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+            TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+            tfodParameters.minResultConfidence = 0.95f;
+            tfodParameters.isModelTensorFlow2 = true;
+            tfodParameters.inputSize = 320;
+            tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+            tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+        }
 }
+

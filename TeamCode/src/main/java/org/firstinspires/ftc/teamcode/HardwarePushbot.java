@@ -57,6 +57,7 @@ public class HardwarePushbot
     public DcMotor  frontRight  = null;
     public DcMotor  backLeft  = null;
     public DcMotor  backRight  = null;
+    public DcMotor lift = null;
 
 
     /* local OpMode members. */
@@ -78,7 +79,8 @@ public class HardwarePushbot
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backRight = hwMap.get(DcMotor.class, "backRight");
         backLeft = hwMap.get(DcMotor.class, "backLeft");
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        lift = hwMap.get(DcMotor.class, "lift");
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
@@ -88,6 +90,7 @@ public class HardwarePushbot
         frontRight.setPower(0);
         backRight.setPower(0);
         backLeft.setPower(0);
+        lift.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -95,6 +98,9 @@ public class HardwarePushbot
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
