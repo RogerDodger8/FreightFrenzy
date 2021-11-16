@@ -160,7 +160,6 @@ public class RunByTimeAuto extends LinearOpMode {
             telemetry.update();
         }
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         if(updatedRecognitions.size() == 1) {
             robot.frontLeft.setPower(FORWARD_SPEED);
             robot.frontRight.setPower(FORWARD_SPEED);
@@ -176,7 +175,7 @@ public class RunByTimeAuto extends LinearOpMode {
             robot.frontRight.setPower(TURN_SPEED);
             robot.backRight.setPower(TURN_SPEED);
             robot.backLeft.setPower(-TURN_SPEED);
-            sleep(500);
+            sleep(650);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backRight.setPower(0);
@@ -186,16 +185,16 @@ public class RunByTimeAuto extends LinearOpMode {
             robot.frontRight.setPower(FORWARD_SPEED);
             robot.backLeft.setPower(FORWARD_SPEED);
             robot.backRight.setPower(FORWARD_SPEED);
-            sleep(10);
+            sleep(50);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
             robot.backRight.setPower(0);
 
             robot.lift.setPower(-0.4);
-            sleep(1000);
-            robot.lift.setPower(0.25);
-            sleep(1000);
+            sleep(1200);
+            robot.lift.setPower(0.225);
+            sleep(7000);
 
         }
 
