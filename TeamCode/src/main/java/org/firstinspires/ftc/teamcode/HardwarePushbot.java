@@ -29,7 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -57,7 +59,10 @@ public class HardwarePushbot
     public DcMotor  frontRight  = null;
     public DcMotor  backLeft  = null;
     public DcMotor  backRight  = null;
-    public DcMotor lift = null;
+    public DcMotor liftRight = null;
+    public DcMotor liftLeft = null;
+    public CRServo gatherServo = null;
+    //private DcMotor spinServo = null;
 
 
     /* local OpMode members. */
@@ -79,28 +84,37 @@ public class HardwarePushbot
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backRight = hwMap.get(DcMotor.class, "backRight");
         backLeft = hwMap.get(DcMotor.class, "backLeft");
-        lift = hwMap.get(DcMotor.class, "lift");
+        liftLeft = hwMap.get(DcMotor.class, "liftLeft");
+        liftRight = hwMap.get(DcMotor.class, "liftRight");
+        gatherServo = hwMap.get(CRServo.class, "gatherServo");
+
+
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
+        liftLeft.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backRight.setPower(0);
         backLeft.setPower(0);
-        lift.setPower(0);
+        liftLeft.setPower(0);
+        gatherServo.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //gatherServo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 

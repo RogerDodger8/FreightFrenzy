@@ -65,8 +65,8 @@ public class BasicOpMode_Iterative extends OpMode
     private CRServo shuteServo = null;
     private CRServo gatherServo = null;
     private DcMotor spinServo = null;
-    //private DcMotor liftRight = null;
-    private DcMotor lift = null;
+    private DcMotor liftRight = null;
+    private DcMotor liftLeft = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -87,8 +87,8 @@ public class BasicOpMode_Iterative extends OpMode
         gatherServo = hardwareMap.get(CRServo.class, "gatherServo");
         spinServo = hardwareMap.get(DcMotor.class, "spinServo");
 
-        //liftRight = hardwareMap.get(DcMotor.class, "liftRight");
-        lift = hardwareMap.get(DcMotor.class, "lift");
+        liftRight = hardwareMap.get(DcMotor.class, "liftRight");
+        liftLeft = hardwareMap.get(DcMotor.class, "liftLeft");
 
 
 
@@ -99,7 +99,7 @@ public class BasicOpMode_Iterative extends OpMode
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
         BackRight.setDirection(DcMotor.Direction.REVERSE);
 
-        lift.setDirection(DcMotor.Direction.REVERSE);
+        liftRight.setDirection(DcMotor.Direction.REVERSE);
         //liftRight.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
@@ -213,10 +213,10 @@ public class BasicOpMode_Iterative extends OpMode
 
 
 
-        lift.setPower(gamepad2.left_trigger);
-        //liftRight.setPower(gamepad2.left_trigger);
-        //liftRight.setPower(-gamepad2.right_trigger);
-        lift.setPower(-gamepad2.right_trigger);
+        liftLeft.setPower(gamepad2.left_trigger*0.25);
+        liftRight.setPower(gamepad2.left_trigger*0.25);
+        liftRight.setPower(-gamepad2.right_trigger*0.25);
+        liftLeft.setPower(-gamepad2.right_trigger*0.25);
 
 
 
