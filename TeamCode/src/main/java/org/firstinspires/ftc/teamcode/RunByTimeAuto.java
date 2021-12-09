@@ -143,7 +143,7 @@ public class RunByTimeAuto extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
-
+//whyyyy
         // Wait for the game to start (driver presses PLAY)
         List<Recognition> updatedRecognitions = tfod.getRecognitions();
         waitForStart();
@@ -156,13 +156,150 @@ public class RunByTimeAuto extends LinearOpMode {
            telemetry.addData("after","listupdate");
            telemetry.update();
            sleep(1000);
-
+//this makes me what to die
            telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
 
         }
+//death plz
 
-        if(updatedRecognitions.size() >= 1) {
+//red warhouse
+        /*robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(1300);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-TURN_SPEED);
+        robot.frontRight.setPower(TURN_SPEED);
+        robot.backRight.setPower(-TURN_SPEED);
+        robot.backLeft.setPower(TURN_SPEED);
+        sleep(2400);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backRight.setPower(0);
+        robot.backLeft.setPower(0);
+
+        robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(1000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backRight.setPower(0);
+        robot.backLeft.setPower(0);
+
+        robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(375);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*/
+// blue warhouse
+        robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(1300);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(TURN_SPEED);
+        robot.frontRight.setPower(-TURN_SPEED);
+        robot.backRight.setPower(TURN_SPEED);
+        robot.backLeft.setPower(-TURN_SPEED);
+        sleep(2400);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backRight.setPower(0);
+        robot.backLeft.setPower(0);
+
+        robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(1000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backRight.setPower(0);
+        robot.backLeft.setPower(0);
+
+        robot.frontLeft.setPower(.30);
+        robot.frontRight.setPower(.30);
+        robot.backLeft.setPower(.30);
+        robot.backRight.setPower(.30);
+        sleep(375);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        //Duck spinning
+        /*robot.frontLeft.setPower(20);
+        robot.frontRight.setPower(-20);
+        robot.backLeft.setPower(-20);
+        robot.backRight.setPower(20);
+        sleep(20);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(20);
+        robot.frontRight.setPower(20);
+        robot.backLeft.setPower(20);
+        robot.backRight.setPower(20);
+        sleep(500);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.spinServo.setPower(3);
+        sleep(500);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-20);
+        robot.frontRight.setPower(-20);
+        robot.backLeft.setPower(-20);
+        robot.backRight.setPower(-20);
+        sleep(500);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-20);
+        robot.frontRight.setPower(20);
+        robot.backLeft.setPower(20);
+        robot.backRight.setPower(-20);
+        sleep(20);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(50);
+        robot.frontRight.setPower(50);
+        robot.backLeft.setPower(50);
+        robot.backRight.setPower(50);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*\
+
+         */
+
+
+
+
+
+//wtf
+        /*if(updatedRecognitions.size() >= 1) {
             //tfod.setZoom(1.0, 16 / 19);
             robot.frontLeft.setPower(0.2);
             robot.frontRight.setPower(0.2);
@@ -202,7 +339,7 @@ public class RunByTimeAuto extends LinearOpMode {
             telemetry.update();
         }sleep(5000);
 
-        if(markerPosition == 3){
+        /*if(markerPosition == 3){
             robot.frontLeft.setPower(0.2);
             robot.frontRight.setPower(0.2);
             robot.backLeft.setPower(0.2);
@@ -373,7 +510,13 @@ public class RunByTimeAuto extends LinearOpMode {
             robot.liftLeft.setPower(0);
             robot.liftRight.setPower(0);
             sleep(30);
-        }
+        }*/
+
+        //I hate my life
+
+
+
+
 
 
 
@@ -524,7 +667,7 @@ public class RunByTimeAuto extends LinearOpMode {
             sleep(650);*\
 
          */
-
+//I FUCKING GIVE UP
 
             //robot.frontLeft.setPower(TURN_SPEED);
             //robot.frontRight.setPower(-TURN_SPEED);

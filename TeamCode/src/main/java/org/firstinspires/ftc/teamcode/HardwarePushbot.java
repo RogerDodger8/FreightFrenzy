@@ -62,8 +62,7 @@ public class HardwarePushbot
     public DcMotor liftRight = null;
     public DcMotor liftLeft = null;
     public CRServo gatherServo = null;
-    //private DcMotor spinServo = null;
-
+    public DcMotor spinServo = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -87,6 +86,8 @@ public class HardwarePushbot
         liftLeft = hwMap.get(DcMotor.class, "liftLeft");
         liftRight = hwMap.get(DcMotor.class, "liftRight");
         gatherServo = hwMap.get(CRServo.class, "gatherServo");
+        spinServo = hwMap.get(DcMotor.class, "spinServo");
+
 
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -94,6 +95,7 @@ public class HardwarePushbot
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.REVERSE);
+        spinServo.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         frontLeft.setPower(0);
@@ -102,6 +104,7 @@ public class HardwarePushbot
         backLeft.setPower(0);
         liftLeft.setPower(0);
         gatherServo.setPower(0);
+        spinServo.setPower((0));
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
