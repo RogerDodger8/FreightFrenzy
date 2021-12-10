@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.checkerframework.checker.units.qual.C;
+
 /**
  * This is NOT an opmode.
  *
@@ -63,6 +65,7 @@ public class HardwarePushbot
     public DcMotor liftLeft = null;
     public CRServo gatherServo = null;
     public DcMotor spinServo = null;
+    public CRServo shuteServo = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -87,6 +90,7 @@ public class HardwarePushbot
         liftRight = hwMap.get(DcMotor.class, "liftRight");
         gatherServo = hwMap.get(CRServo.class, "gatherServo");
         spinServo = hwMap.get(DcMotor.class, "spinServo");
+        shuteServo = hwMap.get(CRServo.class, "shuteServo");
 
 
 
@@ -96,6 +100,7 @@ public class HardwarePushbot
         backRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.REVERSE);
         spinServo.setDirection(DcMotor.Direction.FORWARD);
+        shuteServo.setDirection(CRServo.Direction.FORWARD );
 
         // Set all motors to zero power
         frontLeft.setPower(0);
@@ -105,6 +110,7 @@ public class HardwarePushbot
         liftLeft.setPower(0);
         gatherServo.setPower(0);
         spinServo.setPower((0));
+        shuteServo.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

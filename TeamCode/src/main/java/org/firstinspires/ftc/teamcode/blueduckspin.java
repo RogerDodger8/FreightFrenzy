@@ -64,8 +64,8 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="test auto", group="Pushbot")
-public class RunByTimeAuto extends LinearOpMode {
+@Autonomous(name="blueduckspin", group="Pushbot")
+public class blueduckspin extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_DM.tflite";
     private ElapsedTime runtime = new ElapsedTime();
     private static final String[] LABELS = {
@@ -125,14 +125,14 @@ public class RunByTimeAuto extends LinearOpMode {
             tfod.setZoom(1.0, 16 / 9.0);
         }
 
-    /* Declare OpMode members. */
-    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+        /* Declare OpMode members. */
+        HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
         ElapsedTime     runtime = new ElapsedTime();
 
 
-     final double     FORWARD_SPEED = 0.3;
-     final double     TURN_SPEED    = 0.3;
-     int markerPosition;
+        final double     FORWARD_SPEED = 0.3;
+        final double     TURN_SPEED    = 0.3;
+        int markerPosition;
 
         /*
          * Initialize the drive system variables.
@@ -152,12 +152,12 @@ public class RunByTimeAuto extends LinearOpMode {
             telemetry.addData("before", "listupdate");
             telemetry.update();
             sleep(1000);
-           updatedRecognitions = tfod.getUpdatedRecognitions();
-           telemetry.addData("after","listupdate");
-           telemetry.update();
-           sleep(1000);
+            updatedRecognitions = tfod.getUpdatedRecognitions();
+            telemetry.addData("after","listupdate");
+            telemetry.update();
+            sleep(1000);
 //this makes me what to die
-           telemetry.addData("# Object Detected", updatedRecognitions.size());
+            telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
 
         }
@@ -241,7 +241,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.backRight.setPower(0);*/
 
         //Duck spinning red
-        robot.frontLeft.setPower(0.30);
+        /*robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(-0.30);
         robot.backRight.setPower(0.30);
@@ -270,7 +270,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontRight.setPower(-0.40);
         robot.backLeft.setPower(-0.40);
         robot.backRight.setPower(0.40);
-        sleep(1020);
+        sleep(1250);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
@@ -284,44 +284,9 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-//new stuff
+        robot.backRight.setPower(0);*\
+         */
         robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(-0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(800);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.shuteServo.setPower(0.3);
-        sleep(1200);
-        robot.shuteServo.setPower(0);
-
-        robot.gatherServo.setPower(-0.4);
-        sleep(2000);
-        robot.gatherServo.setPower(0);
-
-        robot.shuteServo.setPower(-0.3);
-        sleep(1220);
-        robot.shuteServo.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(800);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-
-
-
-        /*robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
         robot.backRight.setPower(-0.30);
@@ -375,7 +340,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
 
-         robot.frontLeft.setPower(-0.30);
+        robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
         robot.backRight.setPower(-0.30);
@@ -777,9 +742,9 @@ public class RunByTimeAuto extends LinearOpMode {
 
 
 
-            //robot.gatherServo.setPower(0.5);
-            //sleep(1200);
-            //robot.gatherServo.setPower(0);
+        //robot.gatherServo.setPower(0.5);
+        //sleep(1200);
+        //robot.gatherServo.setPower(0);
 
 
         /*}else if(updatedRecognitions.size() == 0) {
@@ -792,25 +757,25 @@ public class RunByTimeAuto extends LinearOpMode {
          */
 //I FUCKING GIVE UP
 
-            //robot.frontLeft.setPower(TURN_SPEED);
-            //robot.frontRight.setPower(-TURN_SPEED);
-            //robot.backRight(-TURN_SPEED);
-            //robot.backLeft(TURN_SPEED);
-            //sleep()
+        //robot.frontLeft.setPower(TURN_SPEED);
+        //robot.frontRight.setPower(-TURN_SPEED);
+        //robot.backRight(-TURN_SPEED);
+        //robot.backLeft(TURN_SPEED);
+        //sleep()
 
-            //robot.frontLeft.setPower(-TURN_SPEED)
-            //robot.frontRight.setPower(TURN_SPEED)
-            //robot.backRight.setPower(-TURN_SPEED)
-            //robot.backLeft.setPower(TURN_SPEED)
-            //sleep()
+        //robot.frontLeft.setPower(-TURN_SPEED)
+        //robot.frontRight.setPower(TURN_SPEED)
+        //robot.backRight.setPower(-TURN_SPEED)
+        //robot.backLeft.setPower(TURN_SPEED)
+        //sleep()
 
-            //robot.frontLeft.setPower(TURN_SPEED)
-            //robot.frontRight.setPower(TURN_SPEED)
-            //robot.backRight.setPower(TURN_SPEED)
-            //robot.backLeft.setPower(TURN_SPEED);
+        //robot.frontLeft.setPower(TURN_SPEED)
+        //robot.frontRight.setPower(TURN_SPEED)
+        //robot.backRight.setPower(TURN_SPEED)
+        //robot.backLeft.setPower(TURN_SPEED);
 
 
-            // Step 1:  Drive forward for 3 seconds
+        // Step 1:  Drive forward for 3 seconds
         //robot.frontLeft.setPower(FORWARD_SPEED);
         //robot.frontRight.setPower(FORWARD_SPEED);
         //robot.backLeft.setPower(FORWARD_SPEED);
@@ -854,33 +819,34 @@ public class RunByTimeAuto extends LinearOpMode {
         sleep(1000);*/
 
     }
-        private void initVuforia() {
-            /*
-             * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-             */
-            VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-            parameters.vuforiaLicenseKey = VUFORIA_KEY;
-            //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-            parameters.cameraDirection = CameraDirection.BACK;
-            //  Instantiate the Vuforia engine
-            vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-            // Loading trackables is not necessary for the TensorFlow Object Detection engine.
-        }
-
-        /**
-         * Initialize the TensorFlow Object Detection engine.
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
-        private void initTfod() {
-            int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                    "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-            TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-            tfodParameters.minResultConfidence = 0.75f ;
-            tfodParameters.isModelTensorFlow2 = true;
-            tfodParameters.inputSize = 320;
-            tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-            tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
-        }
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        parameters.cameraDirection = CameraDirection.BACK;
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+    }
+
+    /**
+     * Initialize the TensorFlow Object Detection engine.
+     */
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.75f ;
+        tfodParameters.isModelTensorFlow2 = true;
+        tfodParameters.inputSize = 320;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+    }
 }
+
 
