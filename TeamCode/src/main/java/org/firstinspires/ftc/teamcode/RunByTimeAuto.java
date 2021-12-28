@@ -241,7 +241,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.backRight.setPower(0);*/
 
         //Duck spinning red
-        robot.frontLeft.setPower(0.30);
+        /*robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(-0.30);
         robot.backRight.setPower(0.30);
@@ -316,7 +316,202 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*\
+
+         */
+        //go left
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(700);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //go forward
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(940);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(1100);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.2);
+        robot.frontRight.setPower(0.2);
+        robot.backLeft.setPower(0.2);
+        robot.backRight.setPower(0.2);
+        sleep(420);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.spinServo.setPower(-0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(950);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.shuteServo.setPower(-0.3);
+        sleep(2360);
+        robot.shuteServo.setPower(0);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+        robot.shuteServo.setPower(0.3);
+        sleep(2360);
+        robot.shuteServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(1500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+       /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(1100);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.shuteServo.setPower(-0.3);
+        sleep(1510);
+        robot.shuteServo.setPower(0);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.shuteServo.setPower(0.3);
+        sleep(1510);
+        robot.shuteServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(700);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+
+
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(1120);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
 
 
 
@@ -411,7 +606,58 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*/
+//this is where you uncome
+        /*robot.frontLeft.setPower(-0.30);
+        sleep(3000);
+        robot.frontLeft.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        sleep(3000);
+        robot.frontLeft.setPower(0);
+
+        robot.frontRight.setPower(-0.30);
+        sleep(3000);
+        robot.frontRight.setPower(0);
+
+        robot.frontRight.setPower(0.30);
+        sleep(3000);
+        robot.frontRight.setPower(0);
+
+        robot.backLeft.setPower(-.30);
+        sleep(3000);
+        robot.backLeft.setPower(0);
+
+        robot.backLeft.setPower(.30);
+        sleep(3000);
+        robot.backLeft.setPower(0);
+
+        robot.backRight.setPower(-0.3);
+        sleep(3000);
         robot.backRight.setPower(0);
+
+        robot.backRight.setPower(0.3);
+        sleep(3000);
+        robot.backRight.setPower(0);
+
+        robot.spinServo.setPower(0.5);
+        sleep(3000);
+        robot.backRight.setPower(0);
+
+        robot.liftRight.setPower(-0.5);
+        robot.liftLeft.setPower(-0.5);
+        sleep(3000);
+        robot.liftRight.setPower(0);
+        robot.liftLeft.setPower(0);
+
+        robot.liftRight.setPower(0.5);
+        robot.liftLeft.setPower(0.5);
+        sleep(3000);
+        robot.liftRight.setPower(0);
+        robot.liftLeft.setPower(0);*/
+//This is where to uncoment
+
+
 
 
 
@@ -635,7 +881,16 @@ public class RunByTimeAuto extends LinearOpMode {
             sleep(30);
         }*/
 
-        //I hate my life
+        robot.frontLeft.setPower(0.5);
+        robot.frontRight.setPower(0.25);
+        robot.backLeft.setPower(0.25);
+        robot.frontRight.setPower(0.5);
+        sleep(30000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.frontRight.setPower(0);
+
 
 
 
@@ -883,4 +1138,6 @@ public class RunByTimeAuto extends LinearOpMode {
             tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
         }
 }
+
+
 

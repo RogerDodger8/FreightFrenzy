@@ -295,6 +295,147 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //go forward
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(940);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(1100);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.2);
+        robot.frontRight.setPower(0.2);
+        robot.backLeft.setPower(0.2);
+        robot.backRight.setPower(0.2);
+        sleep(420);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.spinServo.setPower(-0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(1100);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(225);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(1000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.25);
+        robot.frontRight.setPower(0.25);
+        robot.backLeft.setPower(0.25);
+        robot.backRight.setPower(0.25);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+//copied from red
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(750);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.shuteServo.setPower(-0.3);
+        sleep(1550);
+        robot.shuteServo.setPower(0);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.shuteServo.setPower(0.3);
+        sleep(1550);
+        robot.shuteServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(750);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+
+
+
+
+        /*robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*/
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(700);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
 
         robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(0.30);
@@ -310,7 +451,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(-0.30);
         robot.backRight.setPower(0.30);
-        sleep(1200);
+        sleep(1100);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);

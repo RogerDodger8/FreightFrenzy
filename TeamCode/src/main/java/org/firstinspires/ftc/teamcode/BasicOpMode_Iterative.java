@@ -146,10 +146,14 @@ public class BasicOpMode_Iterative extends OpMode
         FrontrightPower= -gamepad1.right_stick_y - gamepad1.right_stick_x;
         BackleftPower= -gamepad1.left_stick_y - gamepad1.right_stick_x;
         BackrightPower= -gamepad1.right_stick_y + gamepad1.right_stick_x;*/
-        FrontleftPower= -gamepad1.right_stick_y + gamepad1.right_stick_x;
+        /*FrontleftPower= -gamepad1.right_stick_y + gamepad1.right_stick_x;
         FrontrightPower= -gamepad1.left_stick_y - gamepad1.left_stick_x;
         BackleftPower= -gamepad1.right_stick_y - gamepad1.left_stick_x;
-        BackrightPower= -gamepad1.left_stick_y + gamepad1.right_stick_x;
+        BackrightPower= -gamepad1.left_stick_y + gamepad1.right_stick_x;*/
+        FrontleftPower= gamepad1.right_stick_y - gamepad1.right_stick_x;
+        FrontrightPower= gamepad1.left_stick_y + gamepad1.left_stick_x;
+        BackleftPower= gamepad1.right_stick_y + gamepad1.left_stick_x;
+        BackrightPower= gamepad1.left_stick_y - gamepad1.right_stick_x;
 
         if(gamepad2.dpad_left){
             shuteServo.setPower(1);
@@ -190,24 +194,38 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.dpad_right){
-            FrontleftPower = 0.25;
-            FrontrightPower = -0.25;
+            //FrontleftPower = 0.25;
+            //FrontrightPower = -0.25;
             BackleftPower = -0.25;
-            BackrightPower = 0.25;
+            //BackrightPower = 0.25;
         }
 
         if(gamepad1.dpad_left){
-            FrontleftPower = -0.25;
-            FrontrightPower = 0.25;
-            BackleftPower = 0.25;
+            //FrontleftPower = -0.25;
+            //FrontrightPower = 0.25;
+            //BackleftPower = 0.25;
             BackrightPower = -0.25;
         }
 
         if(gamepad1.right_bumper) {
-            FrontleftPower *= 0.5;
-            FrontrightPower *= 0.5;
-            BackleftPower *= 0.5;
-            BackrightPower *= 0.5;
+            //FrontleftPower *= 0.5;
+            //FrontrightPower *= -0.5;
+            //BackleftPower *= -0.5;
+            //BackrightPower *= 0.5;
+        }
+
+        if(gamepad1.dpad_up) {
+            FrontleftPower = 0.5;
+            FrontrightPower = -0.25;
+            BackleftPower = 0.5;
+            BackrightPower = 0.5;
+        }
+
+        if(gamepad1.dpad_down) {
+            //FrontleftPower *= 0.7;
+            //FrontrightPower *= -0.25;
+            //BackleftPower *= -0.25;
+            //BackrightPower *= 0.5;
         }
 
 
@@ -234,10 +252,50 @@ public class BasicOpMode_Iterative extends OpMode
         FrontRight.setPower(FrontrightPower);
         BackRight.setPower(BackrightPower);
 
+        /*if(gamepad1.dpad_up){
+            FrontleftPower = 0.5;
+        }
+
+        if(gamepad1.dpad_down){
+            FrontleftPower = -0.5;
+        }
+
+        if(gamepad1.dpad_right){
+            FrontrightPower = 0.5;
+        }
+
+        if(gamepad1.dpad_left){
+            FrontrightPower = -0.5;
+        }
+
+        if(gamepad1.right_bumper){
+            BackleftPower = 0.5;
+        }
+
+        if(gamepad1.left_bumper){
+            BackleftPower = -0.5;
+        }
+
+        if(gamepad1.a){
+            BackrightPower = 0.5;
+        }
+
+        if(gamepad1.b){
+            BackrightPower = -0.5;
+        }*/
+
+
+
+
+
+
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
+
+
 
     /*
      * Code to run ONCE after the driver hits STOP

@@ -156,12 +156,12 @@ public class redduckspin extends LinearOpMode {
             telemetry.addData("after","listupdate");
             telemetry.update();
             sleep(1000);
-//this makes me what to die
+
             telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
 
         }
-//death plz
+
 
 //red warhouse
         /*robot.frontLeft.setPower(.30);
@@ -270,7 +270,7 @@ public class redduckspin extends LinearOpMode {
         robot.frontRight.setPower(-0.40);
         robot.backLeft.setPower(-0.40);
         robot.backRight.setPower(0.40);
-        sleep(1250);
+        sleep(1200);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
@@ -285,7 +285,48 @@ public class redduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+//new stuff
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(725);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
 
+        robot.shuteServo.setPower(0.3);
+        sleep(1450);
+        robot.shuteServo.setPower(0);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.shuteServo.setPower(-0.3);
+        sleep(1450);
+        robot.shuteServo.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(725);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
         /*robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
@@ -386,7 +427,7 @@ public class redduckspin extends LinearOpMode {
 
 
 
-//wtf
+
         /*if(updatedRecognitions.size() >= 1) {
             //tfod.setZoom(1.0, 16 / 19);
             robot.frontLeft.setPower(0.2);
@@ -600,7 +641,7 @@ public class redduckspin extends LinearOpMode {
             sleep(30);
         }*/
 
-        //I hate my life
+
 
 
 

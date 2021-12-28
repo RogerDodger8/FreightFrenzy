@@ -201,6 +201,8 @@ public class redwarhouse extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+//new stuff
+
 // blue warhouse
         /*robot.frontLeft.setPower(.30);
         robot.frontRight.setPower(.30);
