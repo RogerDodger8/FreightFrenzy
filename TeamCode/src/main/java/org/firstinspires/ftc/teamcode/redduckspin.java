@@ -103,6 +103,8 @@ public class redduckspin extends LinearOpMode {
     private TFObjectDetector tfod;
     
     private TeamMarkerDetector detector;
+    
+    private SamplingLocation samplingLocation = SamplingLocation.RIGHT;
 
     @Override
     public void runOpMode() {
@@ -169,6 +171,11 @@ public class redduckspin extends LinearOpMode {
             telemetry.update();
 
         }
+        
+        // Perform sampling
+        samplingLocation = detector.sample(false, true);
+        sleep(1);
+
 
 
 //red warhouse
