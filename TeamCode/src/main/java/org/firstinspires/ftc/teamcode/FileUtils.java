@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
-import org.firstinspires.ftc.teamcode.robots.Constants;
 
 import java.io.File;
 import java.io.FileOutputStream;

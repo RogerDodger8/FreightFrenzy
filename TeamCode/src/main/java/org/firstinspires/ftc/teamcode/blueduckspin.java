@@ -156,136 +156,14 @@ public class blueduckspin extends LinearOpMode {
             telemetry.addData("after","listupdate");
             telemetry.update();
             sleep(1000);
-//this makes me what to die
+
             telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
 
         }
-//death plz
 
-//red warhouse
-        /*robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(1300);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
 
-        robot.frontLeft.setPower(-TURN_SPEED);
-        robot.frontRight.setPower(TURN_SPEED);
-        robot.backRight.setPower(-TURN_SPEED);
-        robot.backLeft.setPower(TURN_SPEED);
-        sleep(2400);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
 
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(1000);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(375);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);*/
-// blue warhouse
-        /*robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(1300);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(TURN_SPEED);
-        robot.frontRight.setPower(-TURN_SPEED);
-        robot.backRight.setPower(TURN_SPEED);
-        robot.backLeft.setPower(-TURN_SPEED);
-        sleep(2400);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(1000);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
-        sleep(375);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);*/
-
-        //Duck spinning red
-        /*robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(-0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(0.30);
-        sleep(560);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(750);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-        robot.frontLeft.setPower(0);
-        sleep(2000);
-
-        robot.spinServo.setPower(0.4);
-        sleep(2600);
-        robot.spinServo.setPower(0);
-
-        robot.frontLeft.setPower(0.40);
-        robot.frontRight.setPower(-0.40);
-        robot.backLeft.setPower(-0.40);
-        robot.backRight.setPower(0.40);
-        sleep(1250);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(250);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);*\
-         */
         robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
@@ -295,7 +173,8 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
-        //go forward
+        //move out from the wall
+
         robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
@@ -305,6 +184,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving forward toward the duck spin
 
         robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
@@ -315,6 +195,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //turing to aline with the duck spin
 
         robot.frontLeft.setPower(0.2);
         robot.frontRight.setPower(0.2);
@@ -325,10 +206,12 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving foward so the spinner hits the spin
 
         robot.spinServo.setPower(-0.4);
         sleep(2600);
         robot.spinServo.setPower(0);
+        //the spinner spining to knock off the duck
 
         robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(-0.30);
@@ -339,6 +222,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving backward away from the spinner
 
         robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
@@ -349,6 +233,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //turing to aline with the wall
 
         robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(-0.30);
@@ -359,6 +244,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving sideways to get in position
 
         robot.frontLeft.setPower(0.25);
         robot.frontRight.setPower(0.25);
@@ -369,6 +255,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //going forward to hit the wall in the square
 //copied from red
         robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(-0.30);
@@ -379,14 +266,17 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving backward (The front is on the wall) closer to the shared shipping hub
 
         robot.shuteServo.setPower(-0.3);
         sleep(1550);
         robot.shuteServo.setPower(0);
+        //turing the ramp to aline with the bottem of the shipping hub
 
         robot.gatherServo.setPower(-0.4);
         sleep(2200);
         robot.gatherServo.setPower(0);
+        //relesing the cargo onto the ramp
 
         robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(0.30);
@@ -397,10 +287,12 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving foward so that before the ramp comes in so the cargo slides down if stuck instead of being knocked off
 
         robot.shuteServo.setPower(0.3);
         sleep(1550);
         robot.shuteServo.setPower(0);
+        //putting the ramp back
 
         robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(0.30);
@@ -411,6 +303,7 @@ public class blueduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+        //moving forward back into the parking square
 
 
 
@@ -418,546 +311,7 @@ public class blueduckspin extends LinearOpMode {
 
 
 
-        /*robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(2300);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);*/
-        /*robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(700);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
 
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(960);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(0.30);
-        sleep(1100);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.25);
-        robot.frontRight.setPower(0.25);
-        robot.backLeft.setPower(0.25);
-        robot.backRight.setPower(0.25);
-        sleep(420);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.spinServo.setPower(-0.4);
-        sleep(2600);
-        robot.spinServo.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(-0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(1120);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(200);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-
-
-
-
-
-
-
-
-        /*robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(-0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(-0.3);
-        sleep(720);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(-0.3);
-        sleep(500);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-
-
-
-
-
-
-
-
-//wtf
-        /*if(updatedRecognitions.size() >= 1) {
-            //tfod.setZoom(1.0, 16 / 19);
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(500);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-            currenttime = runtime.seconds();
-            while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
-                telemetry.addData("before", "listupdate");
-                telemetry.update();
-                sleep(1000);
-                updatedRecognitions = tfod.getUpdatedRecognitions();
-                telemetry.addData("after","listupdate");
-                telemetry.update();
-                sleep(1000);
-
-                telemetry.addData("# Object Detected", updatedRecognitions.size());
-                telemetry.update();
-            }
-            if(updatedRecognitions.size() >= 1) {
-                markerPosition = 2;
-                telemetry.addData("Duck in", "number 2");
-                telemetry.update();
-            } else {
-                markerPosition = 1;
-                telemetry.addData("Duck in", "number 1");
-                telemetry.update();
-            }
-
-        } else {
-            markerPosition = 3;
-            telemetry.addData("Duck in", "number 3");
-            telemetry.update();
-        }sleep(5000);
-
-        /*if(markerPosition == 3){
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(500);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-        }
-        robot.frontLeft.setPower(0.2);
-        robot.frontRight.setPower(0.2);
-        robot.backLeft.setPower(0.2);
-        robot.backRight.setPower(0.2);
-        sleep(500);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-TURN_SPEED);
-        robot.frontRight.setPower(TURN_SPEED);
-        robot.backRight.setPower(TURN_SPEED);
-        robot.backLeft.setPower(-TURN_SPEED);
-        sleep(650);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        if(markerPosition == 1) {
-            robot.liftLeft.setPower(-0.1);
-            robot.liftRight.setPower(-0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(10);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-        } else if(markerPosition == 2){
-            robot.liftLeft.setPower(-0.1);
-            robot.liftRight.setPower(-0.1);
-            sleep(150);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(20);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-        }else {
-            robot.liftLeft.setPower(-0.1);
-            robot.liftRight.setPower(-0.1);
-            sleep(100);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(30);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-        }
-
-        robot.gatherServo.setPower(0.25);
-        sleep(100);
-        robot.gatherServo.setPower(0);
-
-        if(markerPosition == 3){
-            robot.frontLeft.setPower(0.2);
-            robot.frontRight.setPower(0.2);
-            robot.backLeft.setPower(0.2);
-            robot.backRight.setPower(0.2);
-            sleep(500);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-        }
-        robot.frontLeft.setPower(0.2);
-        robot.frontRight.setPower(0.2);
-        robot.backLeft.setPower(0.2);
-        robot.backRight.setPower(0.2);
-        sleep(500);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-TURN_SPEED);
-        robot.frontRight.setPower(TURN_SPEED);
-        robot.backRight.setPower(TURN_SPEED);
-        robot.backLeft.setPower(-TURN_SPEED);
-        sleep(300);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        if(markerPosition == 1) {
-            robot.frontLeft.setPower(-0.2);
-            robot.frontRight.setPower(-0.2);
-            robot.backLeft.setPower(-0.2);
-            robot.backRight.setPower(-0.2);
-            sleep(10);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setPower(0.1);
-            robot.liftRight.setPower(0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-        } else if(markerPosition == 2){
-            robot.frontLeft.setPower(-0.2);
-            robot.frontRight.setPower(-0.2);
-            robot.backLeft.setPower(-0.2);
-            robot.backRight.setPower(-0.2);
-            sleep(20);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setPower(0.1);
-            robot.liftRight.setPower(0.1);
-            sleep(150);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-        }else {
-
-            robot.frontLeft.setPower(-0.2);
-            robot.frontRight.setPower(-0.2);
-            robot.backLeft.setPower(-0.2);
-            robot.backRight.setPower(-0.2);
-            sleep(30);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setPower(0.1);
-            robot.liftRight.setPower(0.1);
-            sleep(100);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(30);
-        }*/
-
-        //I hate my life
-
-
-
-
-
-
-
-
-
-
-        /*if(markerPosition == 2) {
-            robot.frontLeft.setPower(FORWARD_SPEED);
-            robot.frontRight.setPower(FORWARD_SPEED);
-            robot.backLeft.setPower(FORWARD_SPEED);
-            robot.backRight.setPower(FORWARD_SPEED);
-            sleep();
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-//this makes it go foward if it reconizes the maker/duck
-            robot.frontLeft.setPower(-TURN_SPEED);
-            robot.frontRight.setPower(TURN_SPEED);
-            robot.backRight.setPower(TURN_SPEED);
-            robot.backLeft.setPower(-TURN_SPEED);
-            sleep(650);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backRight.setPower(0);
-            robot.backLeft.setPower(0);
-//this turns it
-            robot.frontLeft.setPower(FORWARD_SPEED);
-            robot.frontRight.setPower(FORWARD_SPEED);
-            robot.backLeft.setPower(FORWARD_SPEED);
-            robot.backRight.setPower(FORWARD_SPEED);
-            sleep(50);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-//makes it go foward
-            robot.liftLeft.setPower(-0.1);
-            robot.liftRight.setPower(-0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(7000);
-
-            robot.gatherServo.setPower(0.25);
-            sleep(100);
-            robot.gatherServo.setPower(0);
-
-            robot.liftLeft.setPower(0.5);
-            robot.liftRight.setPower(0.5);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-
-        } else if(markerPosition == 1) {
-            robot.frontLeft.setPower(FORWARD_SPEED);
-            robot.frontRight.setPower(FORWARD_SPEED);
-            robot.backLeft.setPower(FORWARD_SPEED);
-            robot.backRight.setPower(FORWARD_SPEED);
-            sleep(5000);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-//moves forward if it finds marker in 3
-            robot.frontLeft.setPower(-TURN_SPEED);
-            robot.frontRight.setPower(TURN_SPEED);
-            robot.backRight.setPower(TURN_SPEED);
-            robot.backLeft.setPower(-TURN_SPEED);
-            sleep(650);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backRight.setPower(0);
-            robot.backLeft.setPower(0);
-
-            robot.liftLeft.setPower(-0.3);
-            robot.liftRight.setPower(-0.3);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(7000);
-
-            robot.gatherServo.setPower(0.25);
-            sleep(100);
-            robot.gatherServo.setPower(0);
-
-            robot.liftLeft.setPower(0.1);
-            robot.liftRight.setPower(0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-
-        }else if(markerPosition == 3){
-            robot.frontLeft.setPower(FORWARD_SPEED);
-            robot.frontRight.setPower(FORWARD_SPEED);
-            robot.backLeft.setPower(FORWARD_SPEED);
-            robot.backRight.setPower(FORWARD_SPEED);
-            sleep(100);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.frontLeft.setPower(-TURN_SPEED);
-            robot.frontRight.setPower(TURN_SPEED);
-            robot.backRight.setPower(TURN_SPEED);
-            robot.backLeft.setPower(-TURN_SPEED);
-            sleep(50);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backRight.setPower(0);
-            robot.backLeft.setPower(0);
-
-            robot.liftLeft.setPower(-0.1);
-            robot.liftRight.setPower(-0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            sleep(7000);
-
-            robot.gatherServo.setPower(0.25);
-            sleep(100);
-            robot.gatherServo.setPower(0);
-
-            robot.liftLeft.setPower(0.1);
-            robot.liftRight.setPower(0.1);
-            sleep(200);
-            robot.liftLeft.setPower(0);
-            robot.liftRight.setPower(0);
-            //if it does not spot it in 3 it proceds like it would if its at 1
-        }*\
-         */
-
-
-
-
-
-        //robot.gatherServo.setPower(0.5);
-        //sleep(1200);
-        //robot.gatherServo.setPower(0);
-
-
-        /*}else if(updatedRecognitions.size() == 0) {
-            robot.frontLeft.setPower(-TURN_SPEED);
-            robot.frontRight.setPower(TURN_SPEED);
-            robot.backRight.setPower(-TURN_SPEED);
-            Trobot.backLeft.setPower(TURN_SPEED);
-            sleep(650);*\
-
-         */
-//I FUCKING GIVE UP
-
-        //robot.frontLeft.setPower(TURN_SPEED);
-        //robot.frontRight.setPower(-TURN_SPEED);
-        //robot.backRight(-TURN_SPEED);
-        //robot.backLeft(TURN_SPEED);
-        //sleep()
-
-        //robot.frontLeft.setPower(-TURN_SPEED)
-        //robot.frontRight.setPower(TURN_SPEED)
-        //robot.backRight.setPower(-TURN_SPEED)
-        //robot.backLeft.setPower(TURN_SPEED)
-        //sleep()
-
-        //robot.frontLeft.setPower(TURN_SPEED)
-        //robot.frontRight.setPower(TURN_SPEED)
-        //robot.backRight.setPower(TURN_SPEED)
-        //robot.backLeft.setPower(TURN_SPEED);
-
-
-        // Step 1:  Drive forward for 3 seconds
-        //robot.frontLeft.setPower(FORWARD_SPEED);
-        //robot.frontRight.setPower(FORWARD_SPEED);
-        //robot.backLeft.setPower(FORWARD_SPEED);
-        //robot.backRight.setPower(FORWARD_SPEED);
-        /*runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 2:  Spin right for 1.3 seconds
-        robot.frontLeft.setPower(TURN_SPEED);
-        robot.frontRight.setPower(-TURN_SPEED);
-        robot.backRight.setPower(-TURN_SPEED);
-        robot.backLeft.setPower(TURN_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0.3)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 3:  Drive Backwards for 1 Second
-        robot.frontLeft.setPower(-FORWARD_SPEED);
-        robot.frontRight.setPower(-FORWARD_SPEED);
-        robot.backRight.setPower(-FORWARD_SPEED);
-        robot.backLeft.setPower(-FORWARD_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 4:  Stop and close the claw.
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.backLeft.setPower(0);
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-        sleep(1000);*/
 
     }
     private void initVuforia() {

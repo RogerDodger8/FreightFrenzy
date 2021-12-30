@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -40,6 +41,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.Constants.SamplingLocation;
 
 import java.util.List;
 
@@ -96,13 +98,13 @@ public class redduckspin extends LinearOpMode {
      */
     private VuforiaLocalizer vuforia;
 
-    /**
-     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
-     * Detection engine.
-     */
-    private TFObjectDetector tfod;
+//    /**
+//     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
+//     * Detection engine.
+//     */
+//    private TFObjectDetector tfod;
     
-    private TeamMarkerDetector detector;
+    private org.firstinspires.ftc.teamcode.TeamMarkerDetector detector;
     
     private SamplingLocation samplingLocation = SamplingLocation.RIGHT;
 
@@ -148,33 +150,46 @@ public class redduckspin extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
-//whyyyy
+
         // Wait for the game to start (driver presses PLAY)
-        List<Recognition> updatedRecognitions = tfod.getRecognitions();
+//        List<Recognition> updatedRecognitions = tfod.getRecognitions();
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         waitForStart();
         double currenttime = runtime.seconds();
         
         // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId"," id", hardwareMap.appContext.getPackageName());
-        detector = new TeamMarkerDetector(cameraMonitorViewId);
+        detector = new org.firstinspires.ftc.teamcode.TeamMarkerDetector(cameraMonitorViewId);
 
         while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
             telemetry.addData("before", "listupdate");
             telemetry.update();
             sleep(1000);
-            updatedRecognitions = tfod.getUpdatedRecognitions();
+//            updatedRecognitions = tfod.getUpdatedRecognitions();
             telemetry.addData("after","listupdate");
             telemetry.update();
             sleep(1000);
 
-            telemetry.addData("# Object Detected", updatedRecognitions.size());
+//            telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
-
         }
         
         // Perform sampling
         samplingLocation = detector.sample(false, true);
         sleep(1);
+
+        switch (samplingLocation) {
+            case CENTER:
+                // do something because it's center
+                break;
+            case RIGHT:
+                // do something because it's right
+                break;
+            default:
+                // do something because it's left
+        }
 
 
 
@@ -342,6 +357,7 @@ public class redduckspin extends LinearOpMode {
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+
         /*robot.frontLeft.setPower(-0.30);
         robot.frontRight.setPower(0.30);
         robot.backLeft.setPower(0.30);
@@ -890,18 +906,18 @@ public class redduckspin extends LinearOpMode {
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
 
-    /**
-     * Initialize the TensorFlow Object Detection engine.
-     */
-    private void initTfod() {
-        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minResultConfidence = 0.75f ;
-        tfodParameters.isModelTensorFlow2 = true;
-        tfodParameters.inputSize = 320;
-        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
-    }
+//    /**
+//     * Initialize the TensorFlow Object Detection engine.
+//     */
+//    private void initTfod() {
+//        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+//                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+//        tfodParameters.minResultConfidence = 0.75f ;
+//        tfodParameters.isModelTensorFlow2 = true;
+//        tfodParameters.inputSize = 320;
+//        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+//        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+//    }
 }
 

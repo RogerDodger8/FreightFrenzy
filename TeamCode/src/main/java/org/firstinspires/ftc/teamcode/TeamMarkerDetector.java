@@ -1,11 +1,15 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode;
+
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import java.util.*;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
-import org.firstinspires.ftc.teamcode.robots.Constants;
+import org.firstinspires.ftc.teamcode.Constants;
 
 /**
  * Detector class that uses the Vuforia engine to grab a bitmap from the phone camera and detect the location of the Team Marker.
@@ -15,18 +19,18 @@ public class TeamMarkerDetector {
 
   private VuforiaLocalizer vuforiaLocalizer;
 
-  private static final int Y_COORD = 145;
+  private static final int Y_COORD = 955;
 
   private int stoneRightX, stoneCenterX, stoneLeftX;
 
-  private static final int STONE_WIDTH = 100, STONE_HEIGHT = 50;
+  private static final int STONE_WIDTH = 340, STONE_HEIGHT = 460;
 
   private static final ColorPreset ACTIVE_YELLOW = ColorPreset.PURE_YELLOW;
-  private static final ColorPreset ACTIVE_BLACK = ColorPreset.PURE_BLACK;
+  private static final ColorPreset ACTIVE_BLACK = ColorPreset.PURE_GRAY;
 
   private enum ColorPreset {
     PURE_YELLOW(255, 255, 0),
-    PURE_BLACK(0, 0, 0);
+    PURE_GRAY(128, 123, 125);
 
     int r, g, b;
 
@@ -54,20 +58,29 @@ public class TeamMarkerDetector {
       stoneCenterX = 285;
       stoneLeftX = 75;
     } else {
-      stoneRightX = 355;
-      stoneCenterX = 190;
-      stoneLeftX = 40;
+      stoneRightX = 2590;
+      stoneCenterX = 1520;
+      stoneLeftX = 415;
+    }
+//look up to location
+    // Note 5X front camera takes picture 3264x2448 pixel wide
+    Bitmap vuBitmap = getBitmap();
+    if (imageSavingEnabled) {
+      FileUtils.saveImage(vuBitmap, null);
     }
 
-    // Note 5X front camera takes picture 640 pixel wide
-    Bitmap vuBitmap = getBitmap();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
 
     Bitmap stoneRight = Bitmap.createBitmap(vuBitmap, stoneRightX, Y_COORD, STONE_WIDTH, STONE_HEIGHT);
     Bitmap stoneCenter = Bitmap.createBitmap(vuBitmap, stoneCenterX, Y_COORD, STONE_WIDTH, STONE_HEIGHT);
     Bitmap stoneLeft = Bitmap.createBitmap(vuBitmap, stoneLeftX, Y_COORD, STONE_WIDTH, STONE_HEIGHT);
 
     if (imageSavingEnabled) {
-      FileUtils.saveImage(vuBitmap, null);
       FileUtils.saveImage(stoneRight, Constants.SamplingLocation.RIGHT);
       FileUtils.saveImage(stoneCenter, Constants.SamplingLocation.CENTER);
       FileUtils.saveImage(stoneLeft, Constants.SamplingLocation.LEFT);

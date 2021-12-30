@@ -118,8 +118,8 @@ public class HardwarePushbot
         //frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //gatherServo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
