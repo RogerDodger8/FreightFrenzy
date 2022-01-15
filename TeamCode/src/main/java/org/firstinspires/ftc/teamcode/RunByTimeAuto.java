@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -106,14 +107,14 @@ public class RunByTimeAuto extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
-        initTfod();
+        //initVuforia();
+        //initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-        if (tfod != null) {
+        /*if (tfod != null) {
             tfod.activate();
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
@@ -123,7 +124,7 @@ public class RunByTimeAuto extends LinearOpMode {
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 16/9).
             tfod.setZoom(1.0, 16 / 9.0);
-        }
+        }*/
 
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -132,7 +133,7 @@ public class RunByTimeAuto extends LinearOpMode {
 
      final double     FORWARD_SPEED = 0.3;
      final double     TURN_SPEED    = 0.3;
-     int markerPosition;
+     int markerPosition = 1;
 
         /*
          * Initialize the drive system variables.
@@ -143,12 +144,12 @@ public class RunByTimeAuto extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
-//whyyyy
+
         // Wait for the game to start (driver presses PLAY)
-        List<Recognition> updatedRecognitions = tfod.getRecognitions();
+        //List<Recognition> updatedRecognitions = tfod.getRecognitions();
         waitForStart();
         double currenttime = runtime.seconds();
-        while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
+        /*while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
             telemetry.addData("before", "listupdate");
             telemetry.update();
             sleep(1000);
@@ -156,12 +157,12 @@ public class RunByTimeAuto extends LinearOpMode {
            telemetry.addData("after","listupdate");
            telemetry.update();
            sleep(1000);
-//this makes me what to die
+
            telemetry.addData("# Object Detected", updatedRecognitions.size());
             telemetry.update();
 
-        }
-//death plz
+        }*/
+
 
 //red warhouse
         /*robot.frontLeft.setPower(.30);
@@ -881,7 +882,7 @@ public class RunByTimeAuto extends LinearOpMode {
             sleep(30);
         }*/
 
-        robot.frontLeft.setPower(0.5);
+        /*robot.frontLeft.setPower(0.5);
         robot.frontRight.setPower(0.25);
         robot.backLeft.setPower(0.25);
         robot.frontRight.setPower(0.5);
@@ -889,7 +890,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
-        robot.frontRight.setPower(0);
+        robot.frontRight.setPower(0);*/
 
 
 
@@ -1027,6 +1028,736 @@ public class RunByTimeAuto extends LinearOpMode {
             //if it does not spot it in 3 it proceds like it would if its at 1
         }*\
          */
+        //Testing marker position 2
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.20);
+        robot.frontRight.setPower(-0.20);
+        robot.backLeft.setPower(-0.20);
+        robot.backRight.setPower(-0.20);
+        sleep(2000);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        sleep(2000);
+
+        robot.spinServo.setPower(0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.40);
+        robot.frontRight.setPower(0.40);
+        robot.backLeft.setPower(0.40);
+        robot.backRight.setPower(-0.40);
+        sleep(1200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(250);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.liftLeft.setTargetPosition(-387);
+        robot.liftRight.setTargetPosition(-387);
+
+        robot.liftLeft.setPower(0.30);
+        robot.liftRight.setPower(0.30);
+
+        sleep(2000);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.liftLeft.setTargetPosition(0);
+        robot.liftRight.setTargetPosition(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        sleep(300);*/
+
+        //Marker postion 3
+
+        //this is the top levle
+
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.20);
+        robot.frontRight.setPower(-0.20);
+        robot.backLeft.setPower(-0.20);
+        robot.backRight.setPower(-0.20);
+        sleep(2000);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        sleep(2000);
+
+        robot.spinServo.setPower(0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.40);
+        robot.frontRight.setPower(0.40);
+        robot.backLeft.setPower(0.40);
+        robot.backRight.setPower(-0.40);
+        sleep(1200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(250);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.liftLeft.setTargetPosition(-370);
+        robot.liftRight.setTargetPosition(-370);
+
+        robot.liftLeft.setPower(0.30);
+        robot.liftRight.setPower(0.30);
+
+        sleep(2000);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.liftLeft.setTargetPosition(0);
+        robot.liftRight.setTargetPosition(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        sleep(300);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(400);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(900);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*/
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(700);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.20);
+        robot.frontRight.setPower(-0.20);
+        robot.backLeft.setPower(-0.20);
+        robot.backRight.setPower(-0.20);
+        sleep(2000);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        sleep(2000);
+
+        robot.spinServo.setPower(0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.40);
+        robot.frontRight.setPower(0.40);
+        robot.backLeft.setPower(0.40);
+        robot.backRight.setPower(-0.40);
+        sleep(1030);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(250);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        if(markerPosition == 3) {
+        robot.liftLeft.setTargetPosition(-200);
+        robot.liftRight.setTargetPosition(-200);
+
+        robot.liftLeft.setPower(0.30);
+        robot.liftRight.setPower(0.30);
+
+        sleep(2020);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(730);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.liftLeft.setTargetPosition(0);
+        robot.liftRight.setTargetPosition(0);
+
+        } else if (markerPosition == 2){
+
+            robot.liftLeft.setTargetPosition(-250);
+            robot.liftRight.setTargetPosition(-250);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(80);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+
+        }else if(markerPosition == 1){
+            robot.liftLeft.setTargetPosition(-200);
+            robot.liftRight.setTargetPosition(-200);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(80);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+
+        } else if (markerPosition == 1){
+            robot.liftLeft.setTargetPosition(-564);
+            robot.liftRight.setTargetPosition(-564);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(60);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+        }
+
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(1600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        sleep(300);
+
+        //Marker postion 3// this is the top levle
+
+        /*robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.20);
+        robot.frontRight.setPower(-0.20);
+        robot.backLeft.setPower(-0.20);
+        robot.backRight.setPower(-0.20);
+        sleep(2000);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        sleep(2000);
+
+        robot.spinServo.setPower(0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.40);
+        robot.frontRight.setPower(0.40);
+        robot.backLeft.setPower(0.40);
+        robot.backRight.setPower(-0.40);
+        sleep(1200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(250);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2200);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(500);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.liftLeft.setTargetPosition(-400)
+        robot.liftRight.setTargetPosition(-400);
+
+        robot.liftLeft.setPower(0.30);
+        robot.liftRight.setPower(0.30);
+
+        sleep(2000);
+
+        robot.gatherServo.setPower(-0.4);
+        sleep(2200);
+        robot.gatherServo.setPower(0);
+
+        robot.liftLeft.setTargetPosition(0);
+        robot.liftRight.setTargetPosition(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        sleep(300);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(400);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(900);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1045,7 +1776,7 @@ public class RunByTimeAuto extends LinearOpMode {
             sleep(650);*\
 
          */
-//I FUCKING GIVE UP
+
 
             //robot.frontLeft.setPower(TURN_SPEED);
             //robot.frontRight.setPower(-TURN_SPEED);
@@ -1109,6 +1840,8 @@ public class RunByTimeAuto extends LinearOpMode {
         sleep(1000);*/
 
     }
+
+
         private void initVuforia() {
             /*
              * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.

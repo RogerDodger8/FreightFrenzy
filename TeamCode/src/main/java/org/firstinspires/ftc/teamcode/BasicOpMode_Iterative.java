@@ -67,6 +67,7 @@ public class BasicOpMode_Iterative extends OpMode
     private DcMotor spinServo = null;
     private DcMotor liftRight = null;
     private DcMotor liftLeft = null;
+    private DcMotor cap = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,6 +90,11 @@ public class BasicOpMode_Iterative extends OpMode
 
         liftRight = hardwareMap.get(DcMotor.class, "liftRight");
         liftLeft = hardwareMap.get(DcMotor.class, "liftLeft");
+
+        cap = hardwareMap.get(DcMotor.class, "cap");
+        cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
 
@@ -150,10 +156,10 @@ public class BasicOpMode_Iterative extends OpMode
         FrontrightPower= -gamepad1.left_stick_y - gamepad1.left_stick_x;
         BackleftPower= -gamepad1.right_stick_y - gamepad1.left_stick_x;
         BackrightPower= -gamepad1.left_stick_y + gamepad1.right_stick_x;*/
-        FrontleftPower= gamepad1.right_stick_y - gamepad1.right_stick_x;
-        FrontrightPower= gamepad1.left_stick_y + gamepad1.left_stick_x;
-        BackleftPower= gamepad1.right_stick_y + gamepad1.left_stick_x;
-        BackrightPower= gamepad1.left_stick_y - gamepad1.right_stick_x;
+        FrontleftPower= gamepad1.left_stick_y - gamepad1.left_stick_x;
+        FrontrightPower= gamepad1.right_stick_y + gamepad1.right_stick_x;
+        BackleftPower= gamepad1.left_stick_y + gamepad1.left_stick_x;
+        BackrightPower= gamepad1.right_stick_y - gamepad1.right_stick_x;
 
         if(gamepad2.dpad_left){
             shuteServo.setPower(1);
@@ -194,24 +200,24 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.dpad_right){
-            //FrontleftPower = 0.25;
-            //FrontrightPower = -0.25;
+            FrontleftPower = 0.25;
+            FrontrightPower = -0.25;
             BackleftPower = -0.25;
-            //BackrightPower = 0.25;
+            BackrightPower = 0.25;
         }
 
         if(gamepad1.dpad_left){
-            //FrontleftPower = -0.25;
-            //FrontrightPower = 0.25;
-            //BackleftPower = 0.25;
+            FrontleftPower = -0.25;
+            FrontrightPower = 0.25;
+            BackleftPower = 0.25;
             BackrightPower = -0.25;
         }
 
         if(gamepad1.right_bumper) {
-            //FrontleftPower *= 0.5;
-            //FrontrightPower *= -0.5;
-            //BackleftPower *= -0.5;
-            //BackrightPower *= 0.5;
+            FrontleftPower *= 0.5;
+            FrontrightPower *= -0.5;
+            BackleftPower *= -0.5;
+            BackrightPower *= 0.5;
         }
 
         if(gamepad1.dpad_up) {
@@ -222,10 +228,52 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.dpad_down) {
-            //FrontleftPower *= 0.7;
-            //FrontrightPower *= -0.25;
-            //BackleftPower *= -0.25;
-            //BackrightPower *= 0.5;
+            FrontleftPower *= 0.7;
+            FrontrightPower *= -0.25;
+            BackleftPower *= -0.25;
+            BackrightPower *= 0.5;
+        }
+
+        //cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        /*if(gamepad2.dpad_up){
+
+            //cap.setTargetPosition(-350);
+            //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            cap.setPower(-10);
+
+        } else {
+            cap.setPower(0);
+
+        }
+
+        //cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        if(gamepad2.dpad_down){
+
+            //cap.setTargetPosition(350);
+            //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            cap.setPower(5);
+
+        } else {
+            cap.setPower(0);
+        }*/
+        if(gamepad2.dpad_down){
+            cap.setTargetPosition(100);
+            cap.setPower(0.6);
+            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }else if(gamepad2.dpad_up) {
+            cap.setTargetPosition(-100);
+            cap.setPower(0.6);
+            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        } else {
+            cap.setPower(0);
         }
 
 

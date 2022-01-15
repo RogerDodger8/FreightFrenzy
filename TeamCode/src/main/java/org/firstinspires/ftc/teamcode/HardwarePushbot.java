@@ -66,6 +66,7 @@ public class HardwarePushbot
     public CRServo gatherServo = null;
     public DcMotor spinServo = null;
     public CRServo shuteServo = null;
+    public DcMotor cap = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -91,6 +92,7 @@ public class HardwarePushbot
         gatherServo = hwMap.get(CRServo.class, "gatherServo");
         spinServo = hwMap.get(DcMotor.class, "spinServo");
         shuteServo = hwMap.get(CRServo.class, "shuteServo");
+        cap = hwMap.get(DcMotor.class, "cap");
 
 
 
@@ -120,10 +122,12 @@ public class HardwarePushbot
         //backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //gatherServo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        cap.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
