@@ -19,6 +19,7 @@ public class TeamMarkerDetector {
 
   private VuforiaLocalizer vuforiaLocalizer;
 
+
   private static final int Y_COORD = 955;
 
   private int stoneRightX, stoneCenterX, stoneLeftX;

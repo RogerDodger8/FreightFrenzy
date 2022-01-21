@@ -127,20 +127,20 @@ public class redduckspin extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-        vuforiaLocalizer.enableConvertFrameToBitmap();
-        vuforiaLocalizer.setFrameQueueCapacity(1);
-    }
+//    private void initVuforia() {
+//        /*
+//         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+//         */
+//        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+//
+//        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+//        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+//
+//        //  Instantiate the Vuforia engine
+//        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+//        vuforiaLocalizer.enableConvertFrameToBitmap();
+//        vuforiaLocalizer.setFrameQueueCapacity(1);
+//    }
 
     /**
      * Initialize the TensorFlow Object Detection engine.
@@ -212,10 +212,6 @@ public class redduckspin extends LinearOpMode {
             waitForStart();
 
             double currenttime = runtime.seconds();
-
-            // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
-            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId"," id", hardwareMap.appContext.getPackageName());
-            detector = new org.firstinspires.ftc.teamcode.TeamMarkerDetector(cameraMonitorViewId);
 
             while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
                 telemetry.addData("before", "listupdate");
