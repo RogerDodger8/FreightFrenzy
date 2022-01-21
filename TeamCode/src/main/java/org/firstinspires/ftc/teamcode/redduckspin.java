@@ -42,7 +42,26 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.Constants.SamplingLocation;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import java.util.List;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import java.util.List;
 import java.util.List;
 
 /**
@@ -89,8 +108,36 @@ public class redduckspin extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+    }
+
+    /**
+     * Initialize the TensorFlow Object Detection engine.
+     */
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfodParameters.isModelTensorFlow2 = true;
+        tfodParameters.inputSize = 320;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
+    }
     private static final String VUFORIA_KEY =
-            "AQ0rZzP/////AAABmTRIZi0yo0NXiSsea78S8wVqSI8v64D/rFfE8zOk70jx0HCdjmPYt8x4SD3+csUaQZbgVuMkVpCeZovQydoVuMPO5E0pffJFdlnss7dY8+ZneTdIPSe/PUFLDIdqIvmxIFlQalKSM95pLuhIoBOK9bKbPHIsB6U2YgLdkLUDbaemHbE2Umla15R9guvN+7PLKRT71SKFAZrfQOSI8FphIHk2YWz1jryflHMAiGwqwe78wkB7NOPNePkDV0y+wmLI5C3jSm1w+lkGYsKl2zGwwyUZAUJSoskFU+X0hdEtWY9/QZAPLfCYTUPCqsihkiX4L8MGeCqfY6xidfjquqfeIluXBeOw2by431akuO52xGZb";
+            "AVIcXQz/////AAABmaxHh/pXc0uQkZHc0fvBXE1sRSGKkYe3KVscLUJr947+r2DwwmaO3NNtiboGAHrnclLNTNiMnl4tvIqvnMR2gh5ha/jYUbI9FrEFcyZcshOUv4TE06wk75BGd/3/66u5d1S5CLtCJ292FHX2Xq8wa54pXddipzgGKobL0FtsaH4BCrEv4g4wQ3sPZnJ6MwU1UWJ5Ti/msZ4SAh7Q+1zJ5Cb74pohbpdPKe8RpMSUBNIaa5Q2nIzK2Xo7BYQ5/m33NcHaeyVMbHPt01/rRbNomEFwudMcBihucBT1scIk7wIIqx6NfIKdzW+lZH4G0uo8Aiaqr1zVWOg+o1YfkCUIhMHqiB8mjWFZjS6SCMEutR7j";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -102,7 +149,7 @@ public class redduckspin extends LinearOpMode {
 //     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
 //     * Detection engine.
 //     */
-//    private TFObjectDetector tfod;
+    private TFObjectDetector tfod;
     
     private org.firstinspires.ftc.teamcode.TeamMarkerDetector detector;
     
@@ -112,15 +159,15 @@ public class redduckspin extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        // initVuforia();
-        // initTfod();
+         initVuforia();
+         initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-//         if (tfod != null) {
-//             tfod.activate();
+         if (tfod != null) {
+             tfod.activate();
 
 //             // The TensorFlow software will scale the input images from the camera to a lower resolution.
 //             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -128,7 +175,7 @@ public class redduckspin extends LinearOpMode {
 //             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
 //             // should be set to the value of the images used to create the TensorFlow Object Detection model
 //             // (typically 16/9).
-//             tfod.setZoom(1.0, 16 / 9.0);
+             tfod.setZoom(1.0, 16 / 9.0);
 //         }
 
         
@@ -139,7 +186,7 @@ public class redduckspin extends LinearOpMode {
 
         final double     FORWARD_SPEED = 0.3;
         final double     TURN_SPEED    = 0.3;
-        int markerPosition;
+        int markerPosition = 3;
 
         /*
          * Initialize the drive system variables.
@@ -166,7 +213,7 @@ public class redduckspin extends LinearOpMode {
         while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
             telemetry.addData("before", "listupdate");
             telemetry.update();
-            sleep(1000);
+            //sleep(1000);
 //            updatedRecognitions = tfod.getUpdatedRecognitions();
             telemetry.addData("after","listupdate");
             telemetry.update();
@@ -177,18 +224,27 @@ public class redduckspin extends LinearOpMode {
         }
         
         // Perform sampling
-        samplingLocation = detector.sample(false, true);
+        //samplingLocation = detector.sample(false, true);
         sleep(1);
 
         switch (samplingLocation) {
             case CENTER:
-                // do something because it's center
+                robot.frontLeft.setPower(.30);
+                robot.frontRight.setPower(.30);
+                robot.backLeft.setPower(.30);
+                robot.backRight.setPower(.30);
                 break;
             case RIGHT:
-                // do something because it's right
+                robot.frontLeft.setPower(.30);
+                robot.frontRight.setPower(.30);
+                robot.backLeft.setPower(.30);
+                robot.backRight.setPower(.30);
                 break;
             default:
-                // do something because it's left
+                robot.frontLeft.setPower(.30);
+                robot.frontRight.setPower(.30);
+                robot.backLeft.setPower(.30);
+                robot.backRight.setPower(.30);
         }
 
 
@@ -271,7 +327,7 @@ public class redduckspin extends LinearOpMode {
         robot.backRight.setPower(0);*/
 
         //Duck spinning red
-        robot.frontLeft.setPower(0.30);
+        /*robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(-0.30);
         robot.backRight.setPower(0.30);
@@ -420,7 +476,282 @@ public class redduckspin extends LinearOpMode {
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);*/
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(700);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.20);
+        robot.frontRight.setPower(-0.20);
+        robot.backLeft.setPower(-0.20);
+        robot.backRight.setPower(-0.20);
+        sleep(2000);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+        robot.frontLeft.setPower(0);
+        sleep(2000);
+
+        robot.spinServo.setPower(0.4);
+        sleep(2600);
+        robot.spinServo.setPower(0);
+
+        robot.frontLeft.setPower(-0.40);
+        robot.frontRight.setPower(0.40);
+        robot.backLeft.setPower(0.40);
+        robot.backRight.setPower(-0.40);
+        sleep(1030);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(-0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(-0.30);
+        sleep(250);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(300);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(2000);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+
+        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        if(markerPosition == 3) {
+            robot.liftLeft.setTargetPosition(-200);
+            robot.liftRight.setTargetPosition(-200);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(730);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+
+        } else if (markerPosition == 2){
+
+            robot.liftLeft.setTargetPosition(-250);
+            robot.liftRight.setTargetPosition(-250);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(80);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+
+        }else if(markerPosition == 1){
+            robot.liftLeft.setTargetPosition(-200);
+            robot.liftRight.setTargetPosition(-200);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(80);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+
+        } else if (markerPosition == 1){
+            robot.liftLeft.setTargetPosition(-564);
+            robot.liftRight.setTargetPosition(-564);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(60);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setPower(0.30);
+            robot.liftRight.setPower(0.30);
+
+            sleep(2020);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(700);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.gatherServo.setPower(-0.4);
+            sleep(2200);
+            robot.gatherServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(0.30);
+            sleep(500);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.liftLeft.setTargetPosition(0);
+            robot.liftRight.setTargetPosition(0);
+        }
+
+
+        robot.frontLeft.setPower(0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(0.30);
+        robot.backRight.setPower(0.30);
+        sleep(1600);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
+
+        sleep(300);
 
 
 
@@ -891,21 +1222,6 @@ public class redduckspin extends LinearOpMode {
         sleep(1000);*/
 
     }
-    private void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-        parameters.cameraDirection = CameraDirection.BACK;
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
-    }
-
 //    /**
 //     * Initialize the TensorFlow Object Detection engine.
 //     */
@@ -919,5 +1235,6 @@ public class redduckspin extends LinearOpMode {
 //        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
 //        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
 //    }
+}
 }
 

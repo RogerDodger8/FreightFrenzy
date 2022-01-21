@@ -94,6 +94,8 @@ public class BasicOpMode_Iterative extends OpMode
         cap = hardwareMap.get(DcMotor.class, "cap");
         cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
 
 
@@ -161,15 +163,15 @@ public class BasicOpMode_Iterative extends OpMode
         BackleftPower= gamepad1.left_stick_y + gamepad1.left_stick_x;
         BackrightPower= gamepad1.right_stick_y - gamepad1.right_stick_x;
 
-        if(gamepad2.dpad_left){
+        if(gamepad1.left_trigger > 0){
             shuteServo.setPower(1);
-        } else if(gamepad2.dpad_right ){
+        } else if(gamepad2.right_trigger > 0){
             shuteServo.setPower(-1);
         } else {
             shuteServo.setPower(0);
         }
 
-        if(gamepad2.x){
+        if(gamepad1.x){
             gatherServo.setPower(1);
         } else if(gamepad2.y) {
             gatherServo.setPower(-1);
@@ -186,53 +188,48 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.dpad_up){
-            FrontleftPower = 0.15;
-            FrontrightPower = 0.15;
-            BackleftPower = 0.15;
-            BackrightPower = 0.15;
-        }
-
-        if(gamepad1.dpad_down){
             FrontleftPower = -0.15;
             FrontrightPower = -0.15;
             BackleftPower = -0.15;
             BackrightPower = -0.15;
         }
 
-        if(gamepad1.dpad_right){
-            FrontleftPower = 0.25;
-            FrontrightPower = -0.25;
-            BackleftPower = -0.25;
-            BackrightPower = 0.25;
+        if(gamepad1.dpad_down){
+            FrontleftPower = 0.15;
+            FrontrightPower = 0.15;
+            BackleftPower = 0.15;
+            BackrightPower = 0.15;
         }
 
-        if(gamepad1.dpad_left){
+        if(gamepad1.dpad_right){
             FrontleftPower = -0.25;
             FrontrightPower = 0.25;
             BackleftPower = 0.25;
             BackrightPower = -0.25;
         }
 
-        if(gamepad1.right_bumper) {
-            FrontleftPower *= 0.5;
-            FrontrightPower *= -0.5;
-            BackleftPower *= -0.5;
-            BackrightPower *= 0.5;
-        }
-
-        if(gamepad1.dpad_up) {
-            FrontleftPower = 0.5;
+        if(gamepad1.dpad_left){
+            FrontleftPower = 0.25;
             FrontrightPower = -0.25;
-            BackleftPower = 0.5;
-            BackrightPower = 0.5;
+            BackleftPower = -0.25;
+            BackrightPower = 0.25;
         }
 
-        if(gamepad1.dpad_down) {
-            FrontleftPower *= 0.7;
-            FrontrightPower *= -0.25;
-            BackleftPower *= -0.25;
-            BackrightPower *= 0.5;
+        if(gamepad1.right_bumper) {
+            FrontleftPower *= 0.6;
+            FrontrightPower *= 0.3;
+            BackleftPower *= 0.3;
+            BackrightPower *= 0.6;
         }
+
+        if(gamepad1.left_bumper) {
+            FrontleftPower *= 0.3;
+            FrontrightPower *= 0.6;
+            BackleftPower *= 0.6;
+            BackrightPower *= 0.3;
+        }
+
+
 
         //cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -265,18 +262,16 @@ public class BasicOpMode_Iterative extends OpMode
             cap.setPower(0);
         }*/
         if(gamepad2.dpad_down){
-            cap.setTargetPosition(100);
-            cap.setPower(0.6);
-            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }else if(gamepad2.dpad_up) {
-            cap.setTargetPosition(-100);
-            cap.setPower(0.6);
-            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        } else {
-            cap.setPower(0);
+            cap.setTargetPosition(-5);
+            cap.setPower(0.1);
         }
 
+        if(gamepad2.dpad_up) {
+            cap.setTargetPosition(10);
+            cap.setPower(0.1);
+        }
 
+        telemetry.addData("encoder pos", cap.getCurrentPosition());
 
 
         liftLeft.setPower(gamepad2.left_trigger*0.25);
