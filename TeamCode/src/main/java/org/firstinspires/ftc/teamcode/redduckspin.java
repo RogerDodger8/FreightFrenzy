@@ -138,8 +138,8 @@ public class redduckspin extends LinearOpMode {
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+        vuforiaLocalizer.enableConvertFrameToBitmap();
+        vuforiaLocalizer.setFrameQueueCapacity(1);
     }
 
     /**
@@ -205,6 +205,7 @@ public class redduckspin extends LinearOpMode {
             robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             waitForStart();
+
             double currenttime = runtime.seconds();
 
             // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
@@ -1237,4 +1238,4 @@ public class redduckspin extends LinearOpMode {
 //        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
 //    }
     }
-}
+
