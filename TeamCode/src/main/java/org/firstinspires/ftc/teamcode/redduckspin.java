@@ -90,11 +90,30 @@ public class redduckspin extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_DM.tflite";
     private ElapsedTime runtime = new ElapsedTime();
     private static final String[] LABELS = {
-            //"Ball",
-            //"Cube",
-            "Duck",
-            "Marker"
+        //"Ball",
+        //"Cube",
+        "Duck",
+        "Marker"
     };
+    private static final String VUFORIA_KEY =
+        "ASxSfhX/////AAABmWcpvgdyP053gmhPvX7/JZ5yybQKAVFnqMk+WjYvbuuiectzmcdkuftxSIgVawrOZ7CQOqdHzISXbHCAom4FhIzrDceJIIEGozFWpgAu5dUKc3q843Hd3x875VOBf8B7DlD7g9TgqxqgQRw9coEUBBeEJqy2KGy4NLPoIKLdiIx8yxSWm7SlooFSgmrutF/roBtVM/N+FhY6Sgdy9fgWssccAhd2IxdYllAaw4s1oC1jqtwbjIsdjNVogmwwXdTmqiKHait1PFyF2FDNfKi+7qs4Mc6KbvXD2FHA6RljkcN5Oo080o2QSVCzDuQtJeagh/CglB2PcatFWnebiWN+a43kEdrUaY+uq0YQ8m9IRBWE";
+
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private VuforiaLocalizer vuforia;
+
+    //    /**
+//     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
+//     * Detection engine.
+//     */
+    private TFObjectDetector tfod;
+
+    private org.firstinspires.ftc.teamcode.TeamMarkerDetector detector;
+
+    private SamplingLocation samplingLocation = SamplingLocation.RIGHT;
+
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -128,7 +147,7 @@ public class redduckspin extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minResultConfidence = 0.8f;
         tfodParameters.isModelTensorFlow2 = true;
@@ -136,38 +155,20 @@ public class redduckspin extends LinearOpMode {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
-    private static final String VUFORIA_KEY =
-            "ASxSfhX/////AAABmWcpvgdyP053gmhPvX7/JZ5yybQKAVFnqMk+WjYvbuuiectzmcdkuftxSIgVawrOZ7CQOqdHzISXbHCAom4FhIzrDceJIIEGozFWpgAu5dUKc3q843Hd3x875VOBf8B7DlD7g9TgqxqgQRw9coEUBBeEJqy2KGy4NLPoIKLdiIx8yxSWm7SlooFSgmrutF/roBtVM/N+FhY6Sgdy9fgWssccAhd2IxdYllAaw4s1oC1jqtwbjIsdjNVogmwwXdTmqiKHait1PFyF2FDNfKi+7qs4Mc6KbvXD2FHA6RljkcN5Oo080o2QSVCzDuQtJeagh/CglB2PcatFWnebiWN+a43kEdrUaY+uq0YQ8m9IRBWE";
-
-    /**
-     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
-     * localization engine.
-     */
-    private VuforiaLocalizer vuforia;
-
-//    /**
-//     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
-//     * Detection engine.
-//     */
-    private TFObjectDetector tfod;
-    
-    private org.firstinspires.ftc.teamcode.TeamMarkerDetector detector;
-    
-    private SamplingLocation samplingLocation = SamplingLocation.RIGHT;
 
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-         initVuforia();
-         initTfod();
+        initVuforia();
+//        initTfod();
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-         if (tfod != null) {
-             tfod.activate();
+//        if (tfod != null) {
+//            tfod.activate();
 
 //             // The TensorFlow software will scale the input images from the camera to a lower resolution.
 //             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -175,77 +176,77 @@ public class redduckspin extends LinearOpMode {
 //             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
 //             // should be set to the value of the images used to create the TensorFlow Object Detection model
 //             // (typically 16/9).
-             tfod.setZoom(1.0, 16 / 9.0);
+//            tfod.setZoom(1.0, 16 / 9.0);
 //         }
 
-        
-        /* Declare OpMode members. */
-        HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
-        ElapsedTime     runtime = new ElapsedTime();
+
+            /* Declare OpMode members. */
+            HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+            ElapsedTime     runtime = new ElapsedTime();
 
 
-        final double     FORWARD_SPEED = 0.3;
-        final double     TURN_SPEED    = 0.3;
-        int markerPosition = 3;
+            final double     FORWARD_SPEED = 0.3;
+            final double     TURN_SPEED    = 0.3;
+            int markerPosition = 3;
 
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+            /*
+             * Initialize the drive system variables.
+             * The init() method of the hardware class does all the work here
+             */
+            robot.init(hardwareMap);
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
-        telemetry.update();
+            // Send telemetry message to signify robot waiting;
+            telemetry.addData("Status", "Ready to run");    //
+            telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
+            // Wait for the game to start (driver presses PLAY)
 //        List<Recognition> updatedRecognitions = tfod.getRecognitions();
-        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        waitForStart();
-        double currenttime = runtime.seconds();
-        
-        // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId"," id", hardwareMap.appContext.getPackageName());
-        detector = new org.firstinspires.ftc.teamcode.TeamMarkerDetector(cameraMonitorViewId);
+            waitForStart();
+            double currenttime = runtime.seconds();
 
-        while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
-            telemetry.addData("before", "listupdate");
-            telemetry.update();
-            //sleep(1000);
+            // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
+            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId"," id", hardwareMap.appContext.getPackageName());
+            detector = new org.firstinspires.ftc.teamcode.TeamMarkerDetector(cameraMonitorViewId);
+
+            while(opModeIsActive() && (runtime.seconds() - currenttime < 2)){
+                telemetry.addData("before", "listupdate");
+                telemetry.update();
+                //sleep(1000);
 //            updatedRecognitions = tfod.getUpdatedRecognitions();
-            telemetry.addData("after","listupdate");
-            telemetry.update();
-            sleep(1000);
+                telemetry.addData("after","listupdate");
+                telemetry.update();
+                sleep(1000);
 
 //            telemetry.addData("# Object Detected", updatedRecognitions.size());
-            telemetry.update();
-        }
-        
-        // Perform sampling
-        //samplingLocation = detector.sample(false, true);
-        sleep(1);
+                telemetry.update();
+            }
 
-        switch (samplingLocation) {
-            case CENTER:
-                robot.frontLeft.setPower(.30);
-                robot.frontRight.setPower(.30);
-                robot.backLeft.setPower(.30);
-                robot.backRight.setPower(.30);
-                break;
-            case RIGHT:
-                robot.frontLeft.setPower(.30);
-                robot.frontRight.setPower(.30);
-                robot.backLeft.setPower(.30);
-                robot.backRight.setPower(.30);
-                break;
-            default:
-                robot.frontLeft.setPower(.30);
-                robot.frontRight.setPower(.30);
-                robot.backLeft.setPower(.30);
-                robot.backRight.setPower(.30);
-        }
+            // Perform sampling
+            samplingLocation = detector.sample(false, true);
+            sleep(1);
+
+            switch (samplingLocation) {
+                case CENTER:
+                    robot.frontLeft.setPower(.30);
+                    robot.frontRight.setPower(.30);
+                    robot.backLeft.setPower(.30);
+                    robot.backRight.setPower(.30);
+                    break;
+                case RIGHT:
+                    robot.frontLeft.setPower(.30);
+                    robot.frontRight.setPower(.30);
+                    robot.backLeft.setPower(.30);
+                    robot.backRight.setPower(.30);
+                    break;
+                default:
+                    robot.frontLeft.setPower(.30);
+                    robot.frontRight.setPower(.30);
+                    robot.backLeft.setPower(.30);
+                    robot.backRight.setPower(.30);
+            }
 
 
 
@@ -326,7 +327,7 @@ public class redduckspin extends LinearOpMode {
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);*/
 
-        //Duck spinning red
+            //Duck spinning red
         /*robot.frontLeft.setPower(0.30);
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(-0.30);
@@ -478,151 +479,9 @@ public class redduckspin extends LinearOpMode {
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);*/
 
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(700);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.20);
-        robot.frontRight.setPower(-0.20);
-        robot.backLeft.setPower(-0.20);
-        robot.backRight.setPower(-0.20);
-        sleep(2000);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-        robot.frontLeft.setPower(0);
-        sleep(2000);
-
-        robot.spinServo.setPower(0.4);
-        sleep(2600);
-        robot.spinServo.setPower(0);
-
-        robot.frontLeft.setPower(-0.40);
-        robot.frontRight.setPower(0.40);
-        robot.backLeft.setPower(0.40);
-        robot.backRight.setPower(-0.40);
-        sleep(1030);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(-0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(-0.30);
-        sleep(250);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(300);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(300);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(300);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        robot.frontLeft.setPower(-0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(-0.30);
-        robot.backRight.setPower(0.30);
-        sleep(2000);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-
-        robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        if(markerPosition == 3) {
-            robot.liftLeft.setTargetPosition(-200);
-            robot.liftRight.setTargetPosition(-200);
-
-            robot.liftLeft.setPower(0.30);
-            robot.liftRight.setPower(0.30);
-
-            sleep(2020);
-
             robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(730);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.gatherServo.setPower(-0.4);
-            sleep(2200);
-            robot.gatherServo.setPower(0);
-
-            robot.liftLeft.setTargetPosition(0);
-            robot.liftRight.setTargetPosition(0);
-
-        } else if (markerPosition == 2){
-
-            robot.liftLeft.setTargetPosition(-250);
-            robot.liftRight.setTargetPosition(-250);
-
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(80);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setPower(0.30);
-            robot.liftRight.setPower(0.30);
-
-            sleep(2020);
-
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(0.30);
             robot.backRight.setPower(-0.30);
             sleep(700);
             robot.frontLeft.setPower(0);
@@ -630,128 +489,270 @@ public class redduckspin extends LinearOpMode {
             robot.backLeft.setPower(0);
             robot.backRight.setPower(0);
 
-            robot.gatherServo.setPower(-0.4);
-            sleep(2200);
-            robot.gatherServo.setPower(0);
+            robot.frontLeft.setPower(-0.20);
+            robot.frontRight.setPower(-0.20);
+            robot.backLeft.setPower(-0.20);
+            robot.backRight.setPower(-0.20);
+            sleep(2000);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+            robot.frontLeft.setPower(0);
+            sleep(2000);
+
+            robot.spinServo.setPower(0.4);
+            sleep(2600);
+            robot.spinServo.setPower(0);
+
+            robot.frontLeft.setPower(-0.40);
+            robot.frontRight.setPower(0.40);
+            robot.backLeft.setPower(0.40);
+            robot.backRight.setPower(-0.40);
+            sleep(1030);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.frontLeft.setPower(-0.30);
+            robot.frontRight.setPower(-0.30);
+            robot.backLeft.setPower(-0.30);
+            robot.backRight.setPower(-0.30);
+            sleep(250);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.frontLeft.setPower(0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(0.30);
+            robot.backRight.setPower(0.30);
+            sleep(300);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.frontLeft.setPower(0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(0.30);
+            robot.backRight.setPower(0.30);
+            sleep(300);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
+
+            robot.frontLeft.setPower(0.30);
+            robot.frontRight.setPower(0.30);
+            robot.backLeft.setPower(0.30);
+            robot.backRight.setPower(0.30);
+            sleep(300);
+            robot.frontLeft.setPower(0);
+            robot.frontRight.setPower(0);
+            robot.backLeft.setPower(0);
+            robot.backRight.setPower(0);
 
             robot.frontLeft.setPower(-0.30);
             robot.frontRight.setPower(0.30);
             robot.backLeft.setPower(-0.30);
             robot.backRight.setPower(0.30);
-            sleep(500);
+            sleep(2000);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
             robot.backRight.setPower(0);
 
-            robot.liftLeft.setTargetPosition(0);
-            robot.liftRight.setTargetPosition(0);
 
-        }else if(markerPosition == 1){
-            robot.liftLeft.setTargetPosition(-200);
-            robot.liftRight.setTargetPosition(-200);
+            robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(80);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
+            robot.liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            robot.liftLeft.setPower(0.30);
-            robot.liftRight.setPower(0.30);
+            robot.liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            sleep(2020);
 
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(700);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
+            if(markerPosition == 3) {
+                robot.liftLeft.setTargetPosition(-200);
+                robot.liftRight.setTargetPosition(-200);
 
-            robot.gatherServo.setPower(-0.4);
-            sleep(2200);
-            robot.gatherServo.setPower(0);
+                robot.liftLeft.setPower(0.30);
+                robot.liftRight.setPower(0.30);
 
-            robot.frontLeft.setPower(-0.30);
+                sleep(2020);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(730);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.gatherServo.setPower(-0.4);
+                sleep(2200);
+                robot.gatherServo.setPower(0);
+
+                robot.liftLeft.setTargetPosition(0);
+                robot.liftRight.setTargetPosition(0);
+
+            } else if (markerPosition == 2){
+
+                robot.liftLeft.setTargetPosition(-250);
+                robot.liftRight.setTargetPosition(-250);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(80);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setPower(0.30);
+                robot.liftRight.setPower(0.30);
+
+                sleep(2020);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(700);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.gatherServo.setPower(-0.4);
+                sleep(2200);
+                robot.gatherServo.setPower(0);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(0.30);
+                sleep(500);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setTargetPosition(0);
+                robot.liftRight.setTargetPosition(0);
+
+            }else if(markerPosition == 1){
+                robot.liftLeft.setTargetPosition(-200);
+                robot.liftRight.setTargetPosition(-200);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(80);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setPower(0.30);
+                robot.liftRight.setPower(0.30);
+
+                sleep(2020);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(700);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.gatherServo.setPower(-0.4);
+                sleep(2200);
+                robot.gatherServo.setPower(0);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(0.30);
+                sleep(500);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setTargetPosition(0);
+                robot.liftRight.setTargetPosition(0);
+
+            } else if (markerPosition == 1){
+                robot.liftLeft.setTargetPosition(-564);
+                robot.liftRight.setTargetPosition(-564);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(60);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setPower(0.30);
+                robot.liftRight.setPower(0.30);
+
+                sleep(2020);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(-0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(-0.30);
+                sleep(700);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.gatherServo.setPower(-0.4);
+                sleep(2200);
+                robot.gatherServo.setPower(0);
+
+                robot.frontLeft.setPower(-0.30);
+                robot.frontRight.setPower(0.30);
+                robot.backLeft.setPower(-0.30);
+                robot.backRight.setPower(0.30);
+                sleep(500);
+                robot.frontLeft.setPower(0);
+                robot.frontRight.setPower(0);
+                robot.backLeft.setPower(0);
+                robot.backRight.setPower(0);
+
+                robot.liftLeft.setTargetPosition(0);
+                robot.liftRight.setTargetPosition(0);
+            }
+
+
+            robot.frontLeft.setPower(0.30);
             robot.frontRight.setPower(0.30);
-            robot.backLeft.setPower(-0.30);
+            robot.backLeft.setPower(0.30);
             robot.backRight.setPower(0.30);
-            sleep(500);
+            sleep(1600);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
             robot.backRight.setPower(0);
 
-            robot.liftLeft.setTargetPosition(0);
-            robot.liftRight.setTargetPosition(0);
-
-        } else if (markerPosition == 1){
-            robot.liftLeft.setTargetPosition(-564);
-            robot.liftRight.setTargetPosition(-564);
-
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(60);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setPower(0.30);
-            robot.liftRight.setPower(0.30);
-
-            sleep(2020);
-
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(-0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(-0.30);
-            sleep(700);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.gatherServo.setPower(-0.4);
-            sleep(2200);
-            robot.gatherServo.setPower(0);
-
-            robot.frontLeft.setPower(-0.30);
-            robot.frontRight.setPower(0.30);
-            robot.backLeft.setPower(-0.30);
-            robot.backRight.setPower(0.30);
-            sleep(500);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            robot.liftLeft.setTargetPosition(0);
-            robot.liftRight.setTargetPosition(0);
-        }
-
-
-        robot.frontLeft.setPower(0.30);
-        robot.frontRight.setPower(0.30);
-        robot.backLeft.setPower(0.30);
-        robot.backRight.setPower(0.30);
-        sleep(1600);
-        robot.frontLeft.setPower(0);
-        robot.frontRight.setPower(0);
-        robot.backLeft.setPower(0);
-        robot.backRight.setPower(0);
-
-        sleep(300);
+            sleep(300);
 
 
 
@@ -1145,9 +1146,9 @@ public class redduckspin extends LinearOpMode {
 
 
 
-        //robot.gatherServo.setPower(0.5);
-        //sleep(1200);
-        //robot.gatherServo.setPower(0);
+            //robot.gatherServo.setPower(0.5);
+            //sleep(1200);
+            //robot.gatherServo.setPower(0);
 
 
         /*}else if(updatedRecognitions.size() == 0) {
@@ -1160,29 +1161,29 @@ public class redduckspin extends LinearOpMode {
          */
 //I FUCKING GIVE UP
 
-        //robot.frontLeft.setPower(TURN_SPEED);
-        //robot.frontRight.setPower(-TURN_SPEED);
-        //robot.backRight(-TURN_SPEED);
-        //robot.backLeft(TURN_SPEED);
-        //sleep()
+            //robot.frontLeft.setPower(TURN_SPEED);
+            //robot.frontRight.setPower(-TURN_SPEED);
+            //robot.backRight(-TURN_SPEED);
+            //robot.backLeft(TURN_SPEED);
+            //sleep()
 
-        //robot.frontLeft.setPower(-TURN_SPEED)
-        //robot.frontRight.setPower(TURN_SPEED)
-        //robot.backRight.setPower(-TURN_SPEED)
-        //robot.backLeft.setPower(TURN_SPEED)
-        //sleep()
+            //robot.frontLeft.setPower(-TURN_SPEED)
+            //robot.frontRight.setPower(TURN_SPEED)
+            //robot.backRight.setPower(-TURN_SPEED)
+            //robot.backLeft.setPower(TURN_SPEED)
+            //sleep()
 
-        //robot.frontLeft.setPower(TURN_SPEED)
-        //robot.frontRight.setPower(TURN_SPEED)
-        //robot.backRight.setPower(TURN_SPEED)
-        //robot.backLeft.setPower(TURN_SPEED);
+            //robot.frontLeft.setPower(TURN_SPEED)
+            //robot.frontRight.setPower(TURN_SPEED)
+            //robot.backRight.setPower(TURN_SPEED)
+            //robot.backLeft.setPower(TURN_SPEED);
 
 
-        // Step 1:  Drive forward for 3 seconds
-        //robot.frontLeft.setPower(FORWARD_SPEED);
-        //robot.frontRight.setPower(FORWARD_SPEED);
-        //robot.backLeft.setPower(FORWARD_SPEED);
-        //robot.backRight.setPower(FORWARD_SPEED);
+            // Step 1:  Drive forward for 3 seconds
+            //robot.frontLeft.setPower(FORWARD_SPEED);
+            //robot.frontRight.setPower(FORWARD_SPEED);
+            //robot.backLeft.setPower(FORWARD_SPEED);
+            //robot.backRight.setPower(FORWARD_SPEED);
         /*runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
@@ -1221,7 +1222,7 @@ public class redduckspin extends LinearOpMode {
         telemetry.update();
         sleep(1000);*/
 
-    }
+        }
 //    /**
 //     * Initialize the TensorFlow Object Detection engine.
 //     */
@@ -1235,6 +1236,5 @@ public class redduckspin extends LinearOpMode {
 //        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
 //        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
 //    }
+    }
 }
-}
-
