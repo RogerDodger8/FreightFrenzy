@@ -160,7 +160,7 @@ public class redduckspin extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
+        // initVuforia();
 //        initTfod();
 
         /**
