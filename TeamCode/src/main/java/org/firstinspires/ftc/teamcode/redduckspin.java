@@ -204,6 +204,11 @@ public class redduckspin extends LinearOpMode {
             robot.liftLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.liftRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+            // For Sampling. Note: change imageSavingEnabled to see what the Detector is sampling against
+            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId"," id", hardwareMap.appContext.getPackageName());
+            detector = new org.firstinspires.ftc.teamcode.TeamMarkerDetector(cameraMonitorViewId);
+
+        
             waitForStart();
 
             double currenttime = runtime.seconds();
