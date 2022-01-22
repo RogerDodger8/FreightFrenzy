@@ -2162,7 +2162,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(0.30);
         robot.backRight.setPower(-0.30);
-        sleep(2500);
+        sleep(2590);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
@@ -2179,8 +2179,8 @@ public class RunByTimeAuto extends LinearOpMode {
 
 
         if(markerPosition == 3) {
-            robot.liftLeft.setTargetPosition(-200);
-            robot.liftRight.setTargetPosition(-200);
+            robot.liftLeft.setTargetPosition(-270);
+            robot.liftRight.setTargetPosition(-270);
 
             robot.liftLeft.setPower(0.30);
             robot.liftRight.setPower(0.30);
@@ -2191,7 +2191,7 @@ public class RunByTimeAuto extends LinearOpMode {
             robot.frontRight.setPower(-0.30);
             robot.backLeft.setPower(-0.30);
             robot.backRight.setPower(-0.30);
-            sleep(430);
+            sleep(400);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
@@ -2348,7 +2348,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.frontRight.setPower(-0.30);
         robot.backLeft.setPower(0.30);
         robot.backRight.setPower(-0.30);
-        sleep(300);
+        sleep(700);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);

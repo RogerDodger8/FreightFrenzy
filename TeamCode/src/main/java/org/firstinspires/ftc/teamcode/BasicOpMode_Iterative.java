@@ -165,13 +165,13 @@ public class BasicOpMode_Iterative extends OpMode
 
         if(gamepad1.left_trigger > 0){
             shuteServo.setPower(1);
-        } else if(gamepad2.right_trigger > 0){
+        } else if(gamepad1.right_trigger > 0){
             shuteServo.setPower(-1);
         } else {
             shuteServo.setPower(0);
         }
 
-        if(gamepad1.x){
+        if(gamepad2.x){
             gatherServo.setPower(1);
         } else if(gamepad2.y) {
             gatherServo.setPower(-1);
@@ -262,16 +262,17 @@ public class BasicOpMode_Iterative extends OpMode
             cap.setPower(0);
         }*/
         if(gamepad2.dpad_down){
-            cap.setTargetPosition(-5);
-            cap.setPower(0.1);
+            cap.setTargetPosition(-1);
+            cap.setPower(-0.1);
         }
 
         if(gamepad2.dpad_up) {
-            cap.setTargetPosition(10);
-            cap.setPower(0.1);
+            cap.setTargetPosition(1);
+            cap.setPower(-0.1);
         }
 
         telemetry.addData("encoder pos", cap.getCurrentPosition());
+        telemetry.addData("encoder target", cap.getTargetPosition());
 
 
         liftLeft.setPower(gamepad2.left_trigger*0.25);

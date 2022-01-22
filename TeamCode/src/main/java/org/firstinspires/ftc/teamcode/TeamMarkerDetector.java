@@ -77,9 +77,9 @@ public class TeamMarkerDetector {
     }
 
 
-    Bitmap stoneRight = Bitmap.createBitmap(vuBitmap, Y_COORD, stoneRightX, STONE_WIDTH, STONE_HEIGHT);
-    Bitmap stoneCenter = Bitmap.createBitmap(vuBitmap, Y_COORD, stoneCenterX, STONE_WIDTH, STONE_HEIGHT);
-    Bitmap stoneLeft = Bitmap.createBitmap(vuBitmap, Y_COORD, stoneLeftX, STONE_WIDTH, STONE_HEIGHT);
+    Bitmap stoneRight = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
+    Bitmap stoneCenter = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
+    Bitmap stoneLeft = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
 
     if (imageSavingEnabled) {
       FileUtils.saveImage(stoneRight, Constants.SamplingLocation.RIGHT);

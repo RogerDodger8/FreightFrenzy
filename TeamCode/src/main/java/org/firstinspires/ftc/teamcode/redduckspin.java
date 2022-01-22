@@ -578,11 +578,11 @@ public class redduckspin extends LinearOpMode {
 
 
             if(markerPosition == 3) {
-                robot.liftLeft.setTargetPosition(-200);
-                robot.liftRight.setTargetPosition(-200);
+                robot.liftLeft.setTargetPosition(-290);
+                robot.liftRight.setTargetPosition(-290);
 
-                robot.liftLeft.setPower(0.30);
-                robot.liftRight.setPower(0.30);
+                robot.liftLeft.setPower(0.20);
+                robot.liftRight.setPower(0.20);
 
                 sleep(2020);
 
@@ -590,7 +590,7 @@ public class redduckspin extends LinearOpMode {
                 robot.frontRight.setPower(-0.30);
                 robot.backLeft.setPower(-0.30);
                 robot.backRight.setPower(-0.30);
-                sleep(730);
+                sleep(350);
                 robot.frontLeft.setPower(0);
                 robot.frontRight.setPower(0);
                 robot.backLeft.setPower(0);
@@ -743,12 +743,21 @@ public class redduckspin extends LinearOpMode {
                 robot.liftRight.setTargetPosition(0);
             }
 
+        robot.frontLeft.setPower(-0.30);
+        robot.frontRight.setPower(0.30);
+        robot.backLeft.setPower(-0.30);
+        robot.backRight.setPower(0.30);
+        sleep(20);
+        robot.frontLeft.setPower(0);
+        robot.frontRight.setPower(0);
+        robot.backLeft.setPower(0);
+        robot.backRight.setPower(0);
 
             robot.frontLeft.setPower(0.30);
             robot.frontRight.setPower(0.30);
             robot.backLeft.setPower(0.30);
             robot.backRight.setPower(0.30);
-            sleep(1600);
+            sleep(1100);
             robot.frontLeft.setPower(0);
             robot.frontRight.setPower(0);
             robot.backLeft.setPower(0);
