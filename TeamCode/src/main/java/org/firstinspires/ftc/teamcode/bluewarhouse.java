@@ -163,20 +163,20 @@ public class bluewarhouse extends LinearOpMode {
         }
 
 // blue warhouse
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
+        robot.frontLeft.setPower(-.30);
+        robot.frontRight.setPower(-.30);
+        robot.backLeft.setPower(-.30);
+        robot.backRight.setPower(-.30);
         sleep(1300);
         robot.frontRight.setPower(0);
         robot.backLeft.setPower(0);
         robot.backRight.setPower(0);
         //moving into the warehouse
 
-        robot.frontLeft.setPower(TURN_SPEED);
-        robot.frontRight.setPower(-TURN_SPEED);
-        robot.backRight.setPower(TURN_SPEED);
-        robot.backLeft.setPower(-TURN_SPEED);
+        robot.frontLeft.setPower(-TURN_SPEED);
+        robot.frontRight.setPower(TURN_SPEED);
+        robot.backRight.setPower(-TURN_SPEED);
+        robot.backLeft.setPower(TURN_SPEED);
         sleep(2400);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);
@@ -184,10 +184,10 @@ public class bluewarhouse extends LinearOpMode {
         robot.backLeft.setPower(0);
         //turning in the warehouse
 
-        robot.frontLeft.setPower(.30);
-        robot.frontRight.setPower(.30);
-        robot.backLeft.setPower(.30);
-        robot.backRight.setPower(.30);
+        robot.frontLeft.setPower(-.30);
+        robot.frontRight.setPower(-.30);
+        robot.backLeft.setPower(-.30);
+        robot.backRight.setPower(-.30);
         sleep(1000);
         robot.frontLeft.setPower(0);
         robot.frontRight.setPower(0);

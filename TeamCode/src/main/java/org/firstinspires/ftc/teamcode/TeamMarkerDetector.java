@@ -3,12 +3,18 @@ package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.sun.tools.javac.code.Attribute;
+
 import java.util.*;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryImpl;
+import org.firstinspires.ftc.robotcore.internal.opmode.TelemetryInternal;
 import org.firstinspires.ftc.teamcode.Constants;
 
 /**
@@ -50,25 +56,19 @@ public class TeamMarkerDetector {
    * Runs the image processing code.
    *
    * @return The location of the team marker; LEFT, CENTER, or RIGHT
-   * @param blueSide
-   * @param imageSavingEnabled
    */
-  public Constants.SamplingLocation sample(boolean blueSide, boolean imageSavingEnabled) {
-    if (blueSide) {
-      stoneRightX = 440;
-      stoneCenterX = 285;
-      stoneLeftX = 75;
-    } else {
-      stoneRightX = 2590;
-      stoneCenterX = 1520;
-      stoneLeftX = 415;
-    }
+  public Constants.SamplingLocation sample(boolean imageSavingEnabled) {
+
+
 //look up to location
-    // Note 5X front camera takes picture 3264x2448 pixel wide
+    // THE PICTURE IS 1280x720 PLAESLKHDFKJADSHFKJSDHFKLHDFSKHSDKHDSFKHHS
     Bitmap vuBitmap = getBitmap();
     if (imageSavingEnabled) {
       FileUtils.saveImage(vuBitmap, null);
     }
+
+    Log.println(Log.INFO, "bitmapFILTER", String.valueOf(vuBitmap.getWidth()));
+    Log.println(Log.INFO, "bitmapFILTER", String.valueOf(vuBitmap.getHeight()));
 
     try {
       Thread.sleep(1000);
@@ -77,9 +77,14 @@ public class TeamMarkerDetector {
     }
 
 
-    Bitmap stoneRight = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
-    Bitmap stoneCenter = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
-    Bitmap stoneLeft = Bitmap.createBitmap(vuBitmap, 0, 0, 1, 1);
+
+    Bitmap stoneRight = Bitmap.createBitmap(vuBitmap, 1026, 269, 175, 175);
+    Log.println(Log.INFO, "bitmapFILTER completed the right", String.valueOf(vuBitmap.getHeight()));
+    Bitmap stoneCenter = Bitmap.createBitmap(vuBitmap, 600, 269, 175, 175);
+    Log.println(Log.INFO, "bitmapFILTER completed the middle", String.valueOf(vuBitmap.getHeight()));
+    Bitmap stoneLeft = Bitmap.createBitmap(vuBitmap, 190, 269, 175, 175);
+    Log.println(Log.INFO, "bitmapFILTER completed the left", String.valueOf(vuBitmap.getHeight()));
+
 
     if (imageSavingEnabled) {
       FileUtils.saveImage(stoneRight, Constants.SamplingLocation.RIGHT);
@@ -88,17 +93,33 @@ public class TeamMarkerDetector {
     }
 
     // Ratio is measured blackness to yellowness. higher ratio is more likeliness to be a team marker.
-    double ratioRight = getClosenessToColor(stoneRight, ACTIVE_BLACK) / getClosenessToColor(stoneRight, ACTIVE_YELLOW);
-    double ratioCenter = getClosenessToColor(stoneCenter, ACTIVE_BLACK) / getClosenessToColor(stoneCenter, ACTIVE_YELLOW);
-    double ratioLeft = getClosenessToColor(stoneLeft, ACTIVE_BLACK) / getClosenessToColor(stoneLeft, ACTIVE_YELLOW);
+//    double ratioRight = getClosenessToColor(stoneRight, ACTIVE_BLACK) / getClosenessToColor(stoneRight, ACTIVE_YELLOW);
+//    double ratioCenter = getClosenessToColor(stoneCenter, ACTIVE_BLACK) / getClosenessToColor(stoneCenter, ACTIVE_YELLOW);
+//    double ratioLeft = getClosenessToColor(stoneLeft, ACTIVE_BLACK) / getClosenessToColor(stoneLeft, ACTIVE_YELLOW);
 
-    if (ratioRight > ratioCenter && ratioRight > ratioLeft) {
-      return Constants.SamplingLocation.RIGHT;
-    } else if (ratioCenter > ratioRight && ratioCenter > ratioLeft) {
+    Log.println(Log.INFO, "bitmapFILTER yellow for right", String.valueOf(getClosenessToColor(stoneRight, ACTIVE_YELLOW)));
+    Log.println(Log.INFO, "bitmapFILTER yellow for center", String.valueOf(getClosenessToColor(stoneCenter, ACTIVE_YELLOW)));
+    Log.println(Log.INFO, "bitmapFILTER yellow for left", String.valueOf(getClosenessToColor(stoneLeft, ACTIVE_YELLOW)));
+    Log.println(Log.INFO, "bitmapFILTER black for right", String.valueOf(getClosenessToColor(stoneRight, ACTIVE_BLACK)));
+    Log.println(Log.INFO, "bitmapFILTER black for center", String.valueOf(getClosenessToColor(stoneCenter, ACTIVE_BLACK)));
+    Log.println(Log.INFO, "bitmapFILTER black for left", String.valueOf(getClosenessToColor(stoneLeft, ACTIVE_BLACK)));
+
+
+    if(getClosenessToColor(stoneLeft, ACTIVE_YELLOW) > getClosenessToColor(stoneRight, ACTIVE_YELLOW) && getClosenessToColor(stoneLeft, ACTIVE_YELLOW) > getClosenessToColor(stoneCenter, ACTIVE_YELLOW)) {
+      return Constants.SamplingLocation.LEFT;
+    } else if(getClosenessToColor(stoneCenter, ACTIVE_YELLOW) > getClosenessToColor(stoneLeft, ACTIVE_YELLOW) && getClosenessToColor(stoneCenter, ACTIVE_YELLOW) > getClosenessToColor(stoneRight, ACTIVE_YELLOW)) {
       return Constants.SamplingLocation.CENTER;
     } else {
-      return Constants.SamplingLocation.LEFT;
+      return Constants.SamplingLocation.RIGHT;
     }
+
+//    if (ratioRight > ratioCenter && ratioRight > ratioLeft) {
+//      return Constants.SamplingLocation.RIGHT;
+//    } else if (ratioCenter > ratioRight && ratioCenter > ratioLeft) {
+//      return Constants.SamplingLocation.CENTER;
+//    } else {
+//      return Constants.SamplingLocation.LEFT;
+//    }
   }
 
   /**
@@ -173,8 +194,8 @@ public class TeamMarkerDetector {
   }
 
   private void initVuforia(int cameraMonitorViewId) {
-    VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-    params.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+    VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters();//cameraMonitorViewId);
+    params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
     params.vuforiaLicenseKey = VUFORIA_KEY;
 
     this.vuforiaLocalizer = ClassFactory.getInstance().createVuforia(params);

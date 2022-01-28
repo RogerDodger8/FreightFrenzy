@@ -94,7 +94,6 @@ public class BasicOpMode_Iterative extends OpMode
         cap = hardwareMap.get(DcMotor.class, "cap");
         cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
@@ -172,9 +171,9 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad2.x){
-            gatherServo.setPower(1);
-        } else if(gamepad2.y) {
             gatherServo.setPower(-1);
+        } else if(gamepad2.y) {
+            gatherServo.setPower(1);
         } else {
             gatherServo.setPower(0);
         }
@@ -188,17 +187,17 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.dpad_up){
-            FrontleftPower = -0.15;
-            FrontrightPower = -0.15;
-            BackleftPower = -0.15;
+            FrontleftPower = -0.25;
+            FrontrightPower = -0.25;
+            BackleftPower = -0.25;
             BackrightPower = -0.15;
         }
 
         if(gamepad1.dpad_down){
-            FrontleftPower = 0.15;
-            FrontrightPower = 0.15;
-            BackleftPower = 0.15;
-            BackrightPower = 0.15;
+            FrontleftPower = 0.25;
+            FrontrightPower = 0.25;
+            BackleftPower = 0.25;
+            BackrightPower = 0.25;
         }
 
         if(gamepad1.dpad_right){
@@ -261,24 +260,38 @@ public class BasicOpMode_Iterative extends OpMode
         } else {
             cap.setPower(0);
         }*/
-        if(gamepad2.dpad_down){
+        /*if(gamepad2.dpad_down){
             cap.setTargetPosition(-1);
+            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             cap.setPower(-0.1);
         }
 
         if(gamepad2.dpad_up) {
             cap.setTargetPosition(1);
+            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             cap.setPower(-0.1);
-        }
+        }*/
 
         telemetry.addData("encoder pos", cap.getCurrentPosition());
         telemetry.addData("encoder target", cap.getTargetPosition());
 
+        if(gamepad2.left_trigger>0){
+            liftLeft.setPower(gamepad2.left_trigger*0.25);
+            liftRight.setPower(gamepad2.left_trigger*0.25);
+        } else if(gamepad2.right_trigger>0){
+            liftRight.setPower(-gamepad2.right_trigger*0.25);
+            liftLeft.setPower(-gamepad2.right_trigger*0.25);
+        } else {
+            liftRight.setPower(0);
+            liftLeft.setPower(0);
+        }
 
-        liftLeft.setPower(gamepad2.left_trigger*0.25);
-        liftRight.setPower(gamepad2.left_trigger*0.25);
-        liftRight.setPower(-gamepad2.right_trigger*0.25);
-        liftLeft.setPower(-gamepad2.right_trigger*0.25);
+
+
+        //liftLeft.setPower(gamepad2.left_trigger*0.25);
+        //liftRight.setPower(gamepad2.left_trigger*0.25);
+        //liftRight.setPower(-gamepad2.right_trigger*0.25);
+        //liftLeft.setPower(-gamepad2.right_trigger*0.25);
 
 
 
