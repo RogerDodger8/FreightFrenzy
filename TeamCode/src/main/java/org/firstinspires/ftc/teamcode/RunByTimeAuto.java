@@ -718,7 +718,7 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        /*frontLeftPosition -= 250;
+        frontLeftPosition -= 250;
         frontRightPosition += 250;
         backLeftPosition += 250;
         backRightPosition -= 250;
@@ -988,11 +988,11 @@ public class RunByTimeAuto extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(2000);*/
+        sleep(2000);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //red duck spin with encoders
-        frontLeftPosition -= 120;
+        /*frontLeftPosition -= 120;
         frontRightPosition += 120;
         backLeftPosition += 120;
         backRightPosition -= 120;
@@ -1209,7 +1209,7 @@ public class RunByTimeAuto extends LinearOpMode {
        robot.backLeft.setPower(0.30);
        robot.backRight.setPower(0.30);
 
-       sleep(2000);
+       sleep(2000);*/
 
 
 

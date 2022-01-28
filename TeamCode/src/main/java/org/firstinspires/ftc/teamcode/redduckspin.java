@@ -805,10 +805,10 @@ public class redduckspin extends LinearOpMode {
 
         sleep(1200);
 
-        frontLeftPosition -= 550;
-        frontRightPosition -= 550;
-        backLeftPosition -= 550;
-        backRightPosition -= 550;
+        frontLeftPosition -= 580;
+        frontRightPosition -= 580;
+        backLeftPosition -= 580;
+        backRightPosition -= 580;
         //moving toward the spinner
 
         robot.frontLeft.setTargetPosition(frontLeftPosition);
@@ -993,22 +993,47 @@ public class redduckspin extends LinearOpMode {
 
                 break;
             case LEFT:
+                frontLeftPosition += 340;
+                frontRightPosition += 340;
+                backLeftPosition += 340;
+                backRightPosition += 340;
+                //going back toward the shipping
+
+                robot.frontLeft.setTargetPosition(frontLeftPosition);
+                robot.frontRight.setTargetPosition(frontRightPosition);
+                robot.backLeft.setTargetPosition(backLeftPosition);
+                robot.backRight.setTargetPosition(backRightPosition);
+
+                robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                robot.frontLeft.setPower(0.30);
+                robot.frontRight.setPower(0.30);
+                robot.backLeft.setPower(0.30);
+                robot.backRight.setPower(0.30);
+
+                sleep(1200);
+
                 robot.shuteServo.setPower(0.3);
-                sleep(1550);
+                sleep(1300);
                 robot.shuteServo.setPower(0);
 
-                robot.gatherServo.setPower(-0.4);
+                robot.gatherServo.setPower(0.4);
                 sleep(2200);
                 robot.gatherServo.setPower(0);
 
+                sleep(3000);
+
                 robot.shuteServo.setPower(-0.3);
-                sleep(1550);
+                sleep(1300);
                 robot.shuteServo.setPower(0);
 
-                frontLeftPosition -= 420;
-                frontRightPosition -= 420;
-                backLeftPosition -= 420;
-                backRightPosition -= 420;
+                frontLeftPosition -= 1000;
+                frontRightPosition -= 1000;
+                backLeftPosition -= 1000;
+                backRightPosition -= 1000;
                 //going back toward the red square
 
                 robot.frontLeft.setTargetPosition(frontLeftPosition);
@@ -1027,6 +1052,29 @@ public class redduckspin extends LinearOpMode {
                 robot.backRight.setPower(0.30);
 
                 sleep(1200);
+
+                frontLeftPosition -= 220;
+                frontRightPosition += 220;
+                backLeftPosition += 220;
+                backRightPosition -= 220;
+                //turing to go into red square
+
+                robot.frontLeft.setTargetPosition(frontLeftPosition);
+                robot.frontRight.setTargetPosition(frontRightPosition);
+                robot.backLeft.setTargetPosition(backLeftPosition);
+                robot.backRight.setTargetPosition(backRightPosition);
+
+                robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                robot.frontLeft.setPower(0.30);
+                robot.frontRight.setPower(0.30);
+                robot.backLeft.setPower(0.30);
+                robot.backRight.setPower(0.30);
+
+                sleep(1500);
 
                 break;
             case RIGHT:
