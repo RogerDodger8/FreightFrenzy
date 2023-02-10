@@ -62,12 +62,8 @@ public class BasicOpMode_Iterative extends OpMode
     private DcMotor FrontRight = null;
     private DcMotor BackLeft = null;
     private DcMotor BackRight = null;
-    private CRServo shuteServo = null;
-    private CRServo gatherServo = null;
-    private DcMotor spinServo = null;
-    private DcMotor liftRight = null;
-    private DcMotor liftLeft = null;
-    private DcMotor cap = null;
+    private double firstTime = 0;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -84,21 +80,6 @@ public class BasicOpMode_Iterative extends OpMode
         BackLeft = hardwareMap.get(DcMotor.class, "backLeft");
         BackRight = hardwareMap.get(DcMotor.class, "backRight");
 
-        shuteServo = hardwareMap.get(CRServo.class, "shuteServo");
-        gatherServo = hardwareMap.get(CRServo.class, "gatherServo");
-        spinServo = hardwareMap.get(DcMotor.class, "spinServo");
-
-        liftRight = hardwareMap.get(DcMotor.class, "liftRight");
-        liftLeft = hardwareMap.get(DcMotor.class, "liftLeft");
-
-        cap = hardwareMap.get(DcMotor.class, "cap");
-        cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-
-
-
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -106,8 +87,6 @@ public class BasicOpMode_Iterative extends OpMode
         FrontRight.setDirection(DcMotor.Direction.REVERSE);
         BackRight.setDirection(DcMotor.Direction.REVERSE);
 
-        liftRight.setDirection(DcMotor.Direction.REVERSE);
-        //liftRight.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -149,48 +128,16 @@ public class BasicOpMode_Iterative extends OpMode
         //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        /*FrontleftPower= -gamepad1.left_stick_y + gamepad1.left_stick_x;
-        FrontrightPower= -gamepad1.right_stick_y - gamepad1.right_stick_x;
-        BackleftPower= -gamepad1.left_stick_y - gamepad1.right_stick_x;
-        BackrightPower= -gamepad1.right_stick_y + gamepad1.right_stick_x;*/
-        /*FrontleftPower= -gamepad1.right_stick_y + gamepad1.right_stick_x;
-        FrontrightPower= -gamepad1.left_stick_y - gamepad1.left_stick_x;
-        BackleftPower= -gamepad1.right_stick_y - gamepad1.left_stick_x;
-        BackrightPower= -gamepad1.left_stick_y + gamepad1.right_stick_x;*/
         FrontleftPower= gamepad1.left_stick_y - gamepad1.left_stick_x;
         FrontrightPower= gamepad1.right_stick_y + gamepad1.right_stick_x;
         BackleftPower= gamepad1.left_stick_y + gamepad1.left_stick_x;
         BackrightPower= gamepad1.right_stick_y - gamepad1.right_stick_x;
 
-        if(gamepad1.left_trigger > 0){
-            shuteServo.setPower(1);
-        } else if(gamepad1.right_trigger > 0){
-            shuteServo.setPower(-1);
-        } else {
-            shuteServo.setPower(0);
-        }
-
-        if(gamepad2.x){
-            gatherServo.setPower(-1);
-        } else if(gamepad2.y) {
-            gatherServo.setPower(1);
-        } else {
-            gatherServo.setPower(0);
-        }
-
-        if(gamepad2.b){
-            spinServo.setPower(0.6);
-        }else if(gamepad2.a) {
-            spinServo.setPower(-0.6);
-        } else {
-            spinServo.setPower(0);
-        }
-
         if(gamepad1.dpad_up){
             FrontleftPower = -0.25;
             FrontrightPower = -0.25;
             BackleftPower = -0.25;
-            BackrightPower = -0.15;
+            BackrightPower = -0.25;
         }
 
         if(gamepad1.dpad_down){
@@ -215,67 +162,21 @@ public class BasicOpMode_Iterative extends OpMode
         }
 
         if(gamepad1.right_bumper) {
-            FrontleftPower *= 0.6;
-            FrontrightPower *= 0.3;
-            BackleftPower *= 0.3;
-            BackrightPower *= 0.6;
+            FrontleftPower *= 0.8;
+            FrontrightPower *= 0.4;
+            BackleftPower *= 0.4;
+            BackrightPower *= 0.8;
         }
 
         if(gamepad1.left_bumper) {
-            FrontleftPower *= 0.3;
-            FrontrightPower *= 0.6;
-            BackleftPower *= 0.6;
-            BackrightPower *= 0.3;
+            FrontleftPower *= 0.4;
+            FrontrightPower *= 0.8;
+            BackleftPower *= 0.8;
+            BackrightPower *= 0.4;
         }
 
 
-
-        //cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        //cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        /*if(gamepad2.dpad_up){
-
-            //cap.setTargetPosition(-350);
-            //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            cap.setPower(-10);
-
-        } else {
-            cap.setPower(0);
-
-        }
-
-        //cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        //cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if(gamepad2.dpad_down){
-
-            //cap.setTargetPosition(350);
-            //cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            cap.setPower(5);
-
-        } else {
-            cap.setPower(0);
-        }*/
-        /*if(gamepad2.dpad_down){
-            cap.setTargetPosition(-1);
-            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            cap.setPower(-0.1);
-        }
-
-        if(gamepad2.dpad_up) {
-            cap.setTargetPosition(1);
-            cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            cap.setPower(-0.1);
-        }*/
-
-        telemetry.addData("encoder pos", cap.getCurrentPosition());
-        telemetry.addData("encoder target", cap.getTargetPosition());
-
-        if(gamepad2.left_trigger>0){
+        /*if(gamepad2.left_trigger>0){
             liftLeft.setPower(gamepad2.left_trigger*0.25);
             liftRight.setPower(gamepad2.left_trigger*0.25);
         } else if(gamepad2.right_trigger>0){
@@ -284,81 +185,31 @@ public class BasicOpMode_Iterative extends OpMode
         } else {
             liftRight.setPower(0);
             liftLeft.setPower(0);
-        }
-
-
-
-        //liftLeft.setPower(gamepad2.left_trigger*0.25);
-        //liftRight.setPower(gamepad2.left_trigger*0.25);
-        //liftRight.setPower(-gamepad2.right_trigger*0.25);
-        //liftLeft.setPower(-gamepad2.right_trigger*0.25);
-
-
-
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
+        }*/
 
         // Send calculated power to wheels
         //leftDrive.setPower(leftPower);
         //rightDrive.setPower(rightPower);
 
-        FrontLeft.setPower(FrontleftPower);
-        BackLeft.setPower(BackleftPower);
-        FrontRight.setPower(FrontrightPower);
-        BackRight.setPower(BackrightPower);
-
-        /*if(gamepad1.dpad_up){
-            FrontleftPower = 0.5;
-        }
-
-        if(gamepad1.dpad_down){
-            FrontleftPower = -0.5;
-        }
-
-        if(gamepad1.dpad_right){
-            FrontrightPower = 0.5;
-        }
-
-        if(gamepad1.dpad_left){
-            FrontrightPower = -0.5;
-        }
-
-        if(gamepad1.right_bumper){
-            BackleftPower = 0.5;
-        }
-
-        if(gamepad1.left_bumper){
-            BackleftPower = -0.5;
-        }
-
-        if(gamepad1.a){
-            BackrightPower = 0.5;
-        }
-
-        if(gamepad1.b){
-            BackrightPower = -0.5;
-        }*/
-
-
-
-
+        FrontLeft.setPower(FrontleftPower*0.85);
+        BackLeft.setPower(BackleftPower*0.85);
+        FrontRight.setPower(FrontrightPower*0.85);
+        BackRight.setPower(BackrightPower*0.85);
 
 
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Stat2us", "Run Time: " + runtime.toString());
         //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-    }
+
 
 
 
     /*
      * Code to run ONCE after the driver hits STOP
      */
-    @Override
-    public void stop() {
-    }
 
-}
+
+}}
+
+

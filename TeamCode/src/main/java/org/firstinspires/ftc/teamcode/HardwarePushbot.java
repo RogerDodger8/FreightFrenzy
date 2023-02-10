@@ -65,8 +65,10 @@ public class HardwarePushbot
     public DcMotor liftLeft = null;
     public CRServo gatherServo = null;
     public DcMotor spinServo = null;
-    public CRServo shuteServo = null;
+    public Servo shuteServo = null;
     public DcMotor cap = null;
+    public Servo bettershuteservo = null;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -91,8 +93,9 @@ public class HardwarePushbot
         liftRight = hwMap.get(DcMotor.class, "liftRight");
         gatherServo = hwMap.get(CRServo.class, "gatherServo");
         spinServo = hwMap.get(DcMotor.class, "spinServo");
-        shuteServo = hwMap.get(CRServo.class, "shuteServo");
+        shuteServo = hwMap.get(Servo.class, "shuteServo");
         cap = hwMap.get(DcMotor.class, "cap");
+        bettershuteservo = hwMap.get(Servo.class, "bettershuteservo");
 
 
 
@@ -102,7 +105,8 @@ public class HardwarePushbot
         backRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.REVERSE);
         spinServo.setDirection(DcMotor.Direction.FORWARD);
-        shuteServo.setDirection(CRServo.Direction.FORWARD );
+        shuteServo.setDirection(Servo.Direction.FORWARD );
+        bettershuteservo.setDirection(Servo.Direction.FORWARD);
 
         // Set all motors to zero power
         frontLeft.setPower(0);
@@ -112,7 +116,8 @@ public class HardwarePushbot
         liftLeft.setPower(0);
         gatherServo.setPower(0);
         spinServo.setPower((0));
-        shuteServo.setPower(0);
+        //shuteServo.setPosition(0);
+        bettershuteservo.setPosition(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -136,6 +141,7 @@ public class HardwarePushbot
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
 
